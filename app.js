@@ -1,19 +1,22 @@
 const express = require('express')
 const mongoose = require('mongoose')
-
+const authRouter = require('./routes/authRoutes')
+const dotenv = require('dotenv')
 const app = express()
 
 // middleware
 app.use(express.static('public'))
+app.use(express.json())
 
 // view engine
 app.set('view engine', 'ejs')
 
+dotenv.config()
+
 // database connection
-const dbURI =
-  'mongodb+srv://admin:admin123@cluster0.sexkk.mongodb.net/movie-ticket'
+
 mongoose
-  .connect(dbURI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -28,3 +31,4 @@ mongoose
 // routes
 app.get('/', (req, res) => res.render('home'))
 app.get('/smoothies', (req, res) => res.render('smoothies'))
+app.use(authRouter)
