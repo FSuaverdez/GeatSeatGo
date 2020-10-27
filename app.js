@@ -4,6 +4,8 @@ const authRouter = require('./routes/authRoutes')
 const dotenv = require('dotenv')
 const app = express()
 
+const PORT = process.env.PORT || 3000
+
 // middleware
 app.use(express.static('public'))
 app.use(express.json())
@@ -22,9 +24,9 @@ mongoose
     useCreateIndex: true,
   })
   .then((result) => {
-    app.listen(3000)
+    app.listen(process.env.PORT)
     console.log('MongoDB connected')
-    console.log('Listening to port 3000')
+    console.log(`Listening to port ${PORT}`)
   })
   .catch((err) => console.log(err))
 
