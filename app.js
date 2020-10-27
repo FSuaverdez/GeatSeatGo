@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const authRouter = require('./routes/authRoutes')
+const authRoutes = require('./routes/authRoutes')
+const adminRoutes = require('./routes/adminRoutes')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 
@@ -36,7 +37,8 @@ mongoose
 // routes
 app.get('/', (req, res) => res.render('home'))
 app.get('/smoothies', (req, res) => res.render('smoothies'))
-app.use(authRouter)
+app.use(authRoutes)
+app.use(adminRoutes)
 
 app.get('/set-cookies', (req, res) => {
   res.cookie('newUser', false)

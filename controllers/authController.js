@@ -61,5 +61,5 @@ module.exports.login_post = async (req, res) => {
 }
 
 module.exports.login_get = (req, res) => {
-  res.render('admin/adminLogin')
+  res.render('./pages/admin/adminLogin')
 }
