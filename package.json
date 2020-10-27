@@ -1,13 +1,15 @@
 {
-  "name": "node-express-jwt-auth",
+  "name": "movie-ticket",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "mongoose": "^5.10.10"
+    "mongoose": "^5.10.10",
+    "validator": "^13.1.17"
   },
   "devDependencies": {},
   "scripts": {
@@ -15,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamshaunjp/node-express-jwt-auth.git"
+    "url": "git+https://github.com/FSuaverdez/movie-ticket.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iamshaunjp/node-express-jwt-auth/issues"
+    "url": "https://github.com/FSuaverdez/movie-ticket/issues"
   },
-  "homepage": "https://github.com/iamshaunjp/node-express-jwt-auth#readme"
+  "homepage": "https://github.com/FSuaverdez/movie-ticket#readme"
 }
