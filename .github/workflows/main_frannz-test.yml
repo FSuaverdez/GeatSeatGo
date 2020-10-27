@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'frannz-test'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bc24a76cafa64dea8b0329ece1ab14fc }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bbfb95a9fd8c4df4b89bccd24f2a7f42 }}
         package: .
