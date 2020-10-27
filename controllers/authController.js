@@ -59,3 +59,7 @@ module.exports.login_post = async (req, res) => {
   console.log('Log Ins: ', email, password)
   res.send('User Login')
 }
+
+module.exports.login_get = (req, res) => {
+  res.render('admin/adminLogin')
+}
