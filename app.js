@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const dotenv = require('dotenv')
+const colors = require('colors')
 const cookieParser = require('cookie-parser')
 
 const app = express()
@@ -29,10 +30,12 @@ mongoose
   })
   .then((result) => {
     app.listen(process.env.PORT)
-    console.log('MongoDB connected')
-    console.log(`Listening to port http://localhost:${PORT}/`)
+    console.log('MongoDB connected'.green.bold.underline)
+    console.log(
+      `Listening to port http://localhost:${PORT}/`.green.bold.underline
+    )
   })
-  .catch((err) => console.log(err))
+  .catch((err) => console.log(`Error: ${err.message}`.red.underline.bold))
 
 // routes
 app.get('/', (req, res) => res.render('home'))
