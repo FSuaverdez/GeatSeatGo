@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, 'Please enter an password'],
-      minlength: [6, 'Minimun password length is 6 characters'],
+      minlength: [6, 'Minimum password length is 6 characters'],
     },
     role: {
       type: String,
@@ -44,6 +44,5 @@ userSchema.pre('save', async function (next) {
 })
 
 const User = mongoose.model('user', userSchema)
-
 
 module.exports = User

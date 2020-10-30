@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const handleErrors = (err) => {
   const errors = { email: '', password: '' }
@@ -19,6 +20,14 @@ const handleErrors = (err) => {
   }
 
   return errors
+}
+
+const MAX_AGE = 3 * 24 * 60 * 60
+
+const createToken = (id) => {
+  return jwt.sign({ id }, 'GETSEATGO2020', {
+    expiresIn: MAX_AGE,
+  })
 }
 
 module.exports.signup_get = (req, res) => {
@@ -45,7 +54,9 @@ module.exports.signup_post = async (req, res) => {
       createdBy,
       modifiedBy,
     })
-    return res.status(201).json(user)
+    const token = createToken(user._id)
+    res.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE * 1000 })
+    return res.status(201).json({ user: user._id })
   } catch (error) {
     const errors = handleErrors(error)
     return res.status(400).json({ errors })
