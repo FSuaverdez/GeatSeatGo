@@ -42,10 +42,17 @@ const createToken = (id) => {
 }
 
 module.exports.signup_get = (req, res) => {
+  if (res.locals.user) {
+    return res.redirect('/')
+  }
+
   res.render('signup')
 }
 
 module.exports.login_get = (req, res) => {
+  if (res.locals.user) {
+    return res.redirect('/')
+  }
   res.render('login')
 }
 

@@ -6,6 +6,11 @@ const handleErrors = (err) => {
   console.log(err.message, err.code)
   const errors = { email: '', password: '' }
 
+  // Unauthorized email
+  if (err.message === 'Unauthorized Email') {
+    errors.email = 'Unauthorized Email'
+  }
+
   // Incorrect email
   if (err.message === 'Incorrect Email') {
     errors.email = 'Email is not registered'
@@ -45,13 +50,16 @@ module.exports.admin_get = (req, res) => {
   res.render('./pages/admin/adminPage')
 }
 module.exports.admin_login_get = (req, res) => {
+  if (res.locals.user) {
+    return res.redirect('/admin')
+  }
   res.render('./pages/admin/adminLogin')
 }
 module.exports.admin_login_post = async (req, res) => {
   const { email, password } = req.body
 
   try {
-    const user = await User.login(email, password)
+    const user = await User.adminLogin(email, password)
     const token = createToken(user._id)
     res.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE * 1000 })
     res.status(200).json({ user: user._id })

@@ -57,6 +57,22 @@ userSchema.statics.login = async function (email, password) {
 
   throw Error('Incorrect Email')
 }
+userSchema.statics.adminLogin = async function (email, password) {
+  const user = await this.findOne({ email })
+  if (user) {
+    if (user.role === 'ADMIN') {
+      const auth = await bcrypt.compare(password, user.password)
+      if (auth) {
+        return user
+      }
+      throw Error('Incorrect Password')
+    } else {
+      throw Error('Unauthorized Email')
+    }
+  }
+
+  throw Error('Incorrect Email')
+}
 
 const User = mongoose.model('user', userSchema)
 

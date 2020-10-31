@@ -32,10 +32,8 @@ const checkUser = (req, res, next) => {
         res.locals.user = null
         next()
       } else {
-        console.log(decodedToken)
         const user = await User.findById(decodedToken.id)
         res.locals.user = user
-        console.log(user)
         next()
       }
     })
@@ -55,12 +53,7 @@ const requireAdminAuth = (req, res, next) => {
         console.log(err.message)
         res.redirect('/admin/login')
       } else {
-        console.log(decodedToken)
-        if (res.locals.user.role === 'ADMIN') {
-          next()
-        } else {
-          throw Error('Not Authorized')
-        }
+        next()
       }
     })
   } else {
