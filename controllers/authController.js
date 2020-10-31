@@ -3,7 +3,18 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
 const handleErrors = (err) => {
+  console.log(err.message, err.code)
   const errors = { email: '', password: '' }
+
+  // Incorrect email
+  if (err.message === 'Incorrect Email') {
+    errors.email = 'Email is not registered'
+  }
+
+  // Incorrect passowrd
+  if (err.message === 'Incorrect Password') {
+    errors.password = 'Incorrect Password'
+  }
 
   // Validate if email is unique
   if (err.name === 'MongoError' && err.code === 11000) {
@@ -67,10 +78,19 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body
-  console.log('Log Ins: ', email, password)
-  res.send('User Login')
+
+  try {
+    const user = await User.login(email, password)
+    const token = createToken(user._id)
+    res.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE * 1000 })
+    res.status(200).json({ user: user._id })
+  } catch (err) {
+    const errors = handleErrors(err)
+    res.status(400).json({ errors })
+  }
 }
 
-module.exports.login_get = (req, res) => {
-  res.render('./pages/admin/adminLogin')
+module.exports.logout_get = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1 })
+  res.redirect('/')
 }
