@@ -33,7 +33,7 @@ module.exports.movies_get = async (req, res) => {
 module.exports.newMovies_get = async (req, res) => {
   res.render('admin/adminMoviesNew', { movie: new Movie() })
 }
-module.exports.movies_post = async (req, res) => {
+module.exports.newMovies_post = async (req, res) => {
   let movie = new Movie({
     title: req.body.title,
     description: req.body.description,

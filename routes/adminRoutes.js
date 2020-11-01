@@ -24,7 +24,7 @@ router.get(
 router.post(
   '/admin/movies/new',
   requireAdminAuth,
-  adminMoviesController.movies_post
+  adminMoviesController.newMovies_post
 )
 
 module.exports = router
