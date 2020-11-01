@@ -27,12 +27,10 @@
           <%= movie.title %>
         </h4>
         <div class="card-subtitle text-muted mb-2">
-          <%= movie.createdAt.toLocaleTimeString("en-PH", {
+          <%= movie.createdAt.toLocaleTimeString(undefined, {
               day:'numeric',
               month: 'numeric',
               year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
           }) %>
         </div>
         <div class="card-text mb-2">
