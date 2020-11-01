@@ -27,14 +27,7 @@
           <%= movie.title %>
         </h4>
         <div class="card-subtitle text-muted mb-2">
-          <%= movie.createdAt.toLocaleDateString(undefined, {
-              day:'numeric',
-              month: 'numeric',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-          }) %>
+          <%= movie.createdAt.toLocaleDateString() %>
         </div>
         <div class="card-text mb-2">
           <%= movie.description %>
