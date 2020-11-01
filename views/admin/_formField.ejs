@@ -1,0 +1,20 @@
+<div class="form-group">
+  <label for="title">Title</label>
+  <input required value="<%= movie.title %>" type="title" name="title" id="title" class="form-control">
+</div>
+<div class="form-group">
+  <label for="description">Description</label>
+  <textarea required name="description" id="description" rows="7" class="form-control">
+    <%= movie.description %>
+  </textarea>
+</div>
+<div class="form-group">
+  <label for="imgUrl">Image link</label>
+  <input required value="<%= movie.imgUrl %>" type=" imgUrl" name="imgUrl" id="imgUrl" class="form-control">
+</div>
+<div class="form-group">
+  <label for="trailerUrl">Trailer link</label>
+  <input required value="<%= movie.trailerUrl%>" type="trailerUrl" name="trailerUrl" id="trailerUrl"
+    class="form-control">
+</div>
+<button type="submit" class="btn btn-primary">Save</button>

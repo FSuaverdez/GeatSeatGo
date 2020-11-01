@@ -1,0 +1,9 @@
+POST http://localhost:3000/admin/movies/new
+Content-Type: application/json
+
+{
+  "title":"The Movie2",
+  "description":"The description2",
+  "imgUrl":"ok.com",
+  "trailerUrl":"ok.com"
+}

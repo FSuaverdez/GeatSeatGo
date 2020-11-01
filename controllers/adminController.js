@@ -47,13 +47,13 @@ const createToken = (id) => {
 }
 
 module.exports.admin_get = (req, res) => {
-  res.render('./pages/admin/adminPage')
+  res.redirect('admin/movies')
 }
 module.exports.admin_login_get = (req, res) => {
   if (res.locals.user) {
     return res.redirect('/admin')
   }
-  res.render('./pages/admin/adminLogin')
+  res.render('admin/adminLogin')
 }
 module.exports.admin_login_post = async (req, res) => {
   const { email, password } = req.body
