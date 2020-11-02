@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getseatgo | Admin</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/adminpage.css">
+</head>
+
+<body>
+  <!-- LOGO -->
+  <div class="navbar container-fluid mt-4">
+    <a href="/admin" class="navbar-brand"><img src="images/logos.png">
+    </a>
+    <h2 class="navbar-text ml-auto mr-5">Welcome <%- user.email %></h2>
+    <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
+  </div>
+  <br>
+  <!-- PILLS -->
+  <div class="container">
+
+
+    <ul class="nav nav-pills nav-justified" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#movie">MOVIES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#user">USERS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#other">OTHERS</a>
+      </li>
+    </ul>
+    <br>
+  </div>
+  <%- include('_moviePill'); -%>
+  <!-- USERS PILL -->
+  <div id="user" class="container tab-pane fade"><br>
+    <div class="container">
+      <div class="row">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1>In Progress</h1>
+            <p>You haven't unlock this part yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- OTHERS PILL -->
+  <div id="other" class="container tab-pane fade"><br>
+    <div class="container">
+      <div class="row">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1>In Progress</h1>
+            <p>You haven't unlock this part yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <br>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container text-center">
+      <p>Getseatgo &copy; All Rights Reserved 2020</p>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+
+    $('#editMovieModal').on('show.bs.modal', function (event) {
+      let button = $(event.relatedTarget) // Button that triggered the modal
+      let id = button.data('id') // Extract info from data-* attributes
+      let title = button.data('title') // Extract info from data-* attributes
+      let description = button.data('description') // Extract info from data-* attributes
+      let imgUrl = button.data('img-url') // Extract info from data-* attributes
+      let trailerUrl = button.data('trailer-url')
+      console.log(trailerUrl) // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      let modal = $(this)
+      modal.find('.modal-title').text('Edit ' + title)
+      modal.find('#title').val(title)
+      modal.find('#description').val(description)
+      modal.find('#img-url').val(imgUrl)
+      modal.find('#trailer-url').val(trailerUrl)
+
+      const form = document.querySelector('#edit-form')
+
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const title = form.title.value
+        const description = form.description.value
+        const imgUrl = form.imgUrl.value
+        const trailerUrl = form.trailerUrl.value
+
+
+        try {
+          const res = await fetch('/admin/movies/' + id, {
+            method: 'put',
+            body: JSON.stringify({ title, description, imgUrl, trailerUrl }),
+            headers: { 'Content-Type': 'application/json' }
+          })
+          const data = await res.json()
+
+          if (!data.errors) {
+            location.assign('/admin')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+
+      })
+    })
+
+
+    $('#deleteMovieModal').on('show.bs.modal', function (event) {
+      let button = $(event.relatedTarget) // Button that triggered the modal
+      let id = button.data('id') // Extract info from data-* attributes
+
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      let modal = $(this)
+
+      const form = document.querySelector('#delete-form')
+      console.log(form)
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const res = await fetch(`/admin/movies/` + id, {
+          method: 'delete',
+        })
+        const data = await res.json()
+
+        if (data.successful) {
+          location.assign('/admin')
+        }
+
+      })
+
+    })
+
+  </script>
+</body>
+
+</html>

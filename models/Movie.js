@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 const movieSchema = new mongoose.Schema(
   {
@@ -18,9 +19,21 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Trailer URL must not be empty'],
     },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   { timestamps: true }
 )
+
+movieSchema.pre('validate', function (next) {
+  if (this.title) {
+    this.slug = slugify(this.title, { lower: true, strict: true })
+  }
+  next()
+})
 
 const Movie = mongoose.model('movie', movieSchema)
 

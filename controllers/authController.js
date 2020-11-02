@@ -68,7 +68,7 @@ module.exports.signup_post = async (req, res) => {
       _id: id,
       email,
       password,
-      role: 'ADMIN',
+      role: 'USER',
       createdBy,
       modifiedBy,
     })

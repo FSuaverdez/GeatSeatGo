@@ -46,12 +46,9 @@ const createToken = (id) => {
   })
 }
 
-module.exports.admin_get = (req, res) => {
-  res.redirect('admin/movies')
-}
 module.exports.admin_login_get = (req, res) => {
   if (res.locals.user) {
-    return res.redirect('/admin')
+    return res.redirect('/')
   }
   res.render('admin/adminLogin')
 }
