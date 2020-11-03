@@ -21,7 +21,10 @@ const movieSchema = new mongoose.Schema(
     },
     slug: {
       type: String,
-      required: true,
+      required: [
+        true,
+        'Make sure that all characters are not Special Characters',
+      ],
       unique: true,
     },
   },
@@ -30,6 +33,7 @@ const movieSchema = new mongoose.Schema(
 
 movieSchema.pre('validate', function (next) {
   if (this.title) {
+    const slugify = require('slugify')
     this.slug = slugify(this.title, { lower: true, strict: true })
   }
   next()

@@ -16,6 +16,7 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
+app.get('*', checkUser)
 
 // view engine
 app.set('view engine', 'ejs')
@@ -40,7 +41,6 @@ mongoose
   .catch((err) => console.log(`Error: ${err.message}`.red.underline.bold))
 
 // routes
-app.get('*', checkUser)
 app.get('/', (req, res) => res.render('home'))
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'))
 app.use(authRoutes)

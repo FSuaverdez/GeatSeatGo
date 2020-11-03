@@ -1,5 +1,59 @@
 <script>
 
+  $('#addMovieModal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget) // Button that triggered the modal
+    let id = button.data('id') // Extract info from data-* attributes
+    let title = button.data('title') // Extract info from data-* attributes
+    let description = button.data('description') // Extract info from data-* attributes
+    let imgUrl = button.data('img-url') // Extract info from data-* attributes
+    let trailerUrl = button.data('trailer-url')
+    // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    let modal = $(this)
+    modal.find('.modal-title').text('Add Movie')
+    modal.find('#title').val(title)
+    modal.find('#description').val(description)
+    modal.find('#img-url').val(imgUrl)
+    modal.find('#trailer-url').val(trailerUrl)
+
+    const form = document.querySelector('#add-form')
+    const titleError = document.querySelector('.title.error')
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const title = form.title.value
+      const description = form.description.value
+      const imgUrl = form.imgUrl.value
+      const trailerUrl = form.trailerUrl.value
+
+
+      try {
+        const res = await fetch('/admin/movies', {
+          method: 'POST',
+          body: JSON.stringify({ title, description, imgUrl, trailerUrl }),
+          headers: { 'Content-Type': 'application/json' }
+        })
+        const data = await res.json()
+        console.log(data)
+
+        if (data.movie) {
+          location.assign('/admin')
+        }
+
+        if (data.errors.slug) {
+          titleError.textContent = "Title must contain normal characters"
+        }
+
+
+      } catch (error) {
+        location.assign('/admin')
+      }
+
+    })
+  })
+
   $('#editMovieModal').on('show.bs.modal', function (event) {
     let button = $(event.relatedTarget) // Button that triggered the modal
     let id = button.data('id') // Extract info from data-* attributes
@@ -7,9 +61,7 @@
     let description = button.data('description') // Extract info from data-* attributes
     let imgUrl = button.data('img-url') // Extract info from data-* attributes
     let trailerUrl = button.data('trailer-url')
-    console.log(trailerUrl) // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
     let modal = $(this)
     modal.find('.modal-title').text('Edit ' + title)
     modal.find('#title').val(title)
@@ -18,7 +70,7 @@
     modal.find('#trailer-url').val(trailerUrl)
 
     const form = document.querySelector('#edit-form')
-
+    const titleError = document.querySelector('.edit.title.error')
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -37,9 +89,16 @@
         })
         const data = await res.json()
 
-        if (!data.errors) {
+        if (data.movie) {
           location.assign('/admin')
         }
+
+        if (data.errors.slug) {
+          titleError.textContent = "Title must contain normal characters"
+        }
+
+
+
       } catch (error) {
         console.log(error)
       }
@@ -57,19 +116,26 @@
     let modal = $(this)
 
     const form = document.querySelector('#delete-form')
+    const titleError = document.querySelector('.title.error')
     console.log(form)
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const res = await fetch(`/admin/movies/` + id, {
-        method: 'delete',
-      })
-      const data = await res.json()
+      try {
 
-      if (data.successful) {
+        const res = await fetch(`/admin/movies/` + id, {
+          method: 'delete',
+        })
+        const data = await res.json()
+
+        if (data.successful) {
+          location.assign('/admin')
+        }
+      } catch (error) {
         location.assign('/admin')
       }
+
 
     })
 
