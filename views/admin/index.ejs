@@ -16,7 +16,9 @@
   <div class="navbar container-fluid mt-4">
     <a href="/admin" class="navbar-brand"><img src="images/logos.png">
     </a>
+    <% if (user) { %>
     <h2 class="navbar-text ml-auto mr-5">Welcome <%- user.email %></h2>
+    <% } %>
     <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
   </div>
   <br>
