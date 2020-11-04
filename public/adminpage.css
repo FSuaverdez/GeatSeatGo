@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 /* base */
-
+a {
+  display: inline-block;
+}
 html,
 body {
   font-family: 'Poppins', sans-serif;
@@ -12,7 +14,6 @@ body {
 .btn-primary {
   background-color: #eab354;
   border-color: #eab354;
-  margin-right: 25px;
 }
 /* kulay sa yellow buttons */
 .btn-warning {
@@ -43,6 +44,7 @@ a {
   border-radius: 1px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.247);
 }
+
 /* title part ng table */
 .table-title {
   padding-bottom: 15px;
@@ -56,13 +58,10 @@ a {
 /* dalawang button sa title */
 .table-title .btn {
   color: #fff;
-  float: right;
   font-size: 15px;
   border-radius: 10px;
   outline: none !important;
-  margin-left: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.247);
-  margin-top: 2px;
 }
 /* padding ng table */
 table.table tr th,
@@ -174,4 +173,9 @@ table.table td a:hover {
   color: rgb(199, 73, 73);
   font-weight: bold;
   font-size: 1rem;
+}
+
+.search-title,
+.search-email {
+  height: 35px;
 }

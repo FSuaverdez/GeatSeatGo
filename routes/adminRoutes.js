@@ -1,7 +1,8 @@
 const { Router } = require('express')
 const authController = require('../controllers/authController')
 const adminController = require('../controllers/adminController')
-const adminMoviesController = require('../controllers/adminMoviesController')
+const adminMovieController = require('../controllers/adminMovieController')
+const adminUserController = require('../controllers/adminUserController')
 const { requireAdminAuth } = require('../middlewares/authMiddleware')
 const router = Router()
 
@@ -11,23 +12,26 @@ router.post('/admin/login', adminController.admin_login_post)
 
 // ADMIN LOGOUT
 router.get('/admin/logout', adminController.admin_logout_get)
+router.get('/admin', adminController.admin_get)
 
 // ADMIN MOVIES
-router.get('/admin', requireAdminAuth, adminMoviesController.movies_get)
-router.post(
-  '/admin/movies',
-  requireAdminAuth,
-  adminMoviesController.movies_post
-)
+router.get('/admin/movies', requireAdminAuth, adminMovieController.movies_get)
+router.post('/admin/movies', requireAdminAuth, adminMovieController.movies_post)
 router.delete(
   '/admin/movies/:id',
   requireAdminAuth,
-  adminMoviesController.movies_delete
+  adminMovieController.movies_delete
 )
 router.put(
   '/admin/movies/:id',
   requireAdminAuth,
-  adminMoviesController.movies_edit
+  adminMovieController.movies_edit
 )
+
+// USER
+
+router.get('/admin/users', requireAdminAuth, adminUserController.users_get)
+router.post('/admin/users', requireAdminAuth, adminUserController.users_post)
+router.put('/admin/users/:id', requireAdminAuth, adminUserController.users_edit)
 
 module.exports = router

@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: 'USER',
     },
+    enabled: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
     createdBy: {
       type: String,
       required: true,
@@ -37,29 +42,24 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-//function before saving to db
-userSchema.pre('save', async function (next) {
-  const salt = await bcrypt.genSalt()
-  this.password = await bcrypt.hash(this.password, salt)
-  next()
-})
-
 //static method
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email })
-  if (user) {
+  if (user && user.enabled) {
     const auth = await bcrypt.compare(password, user.password)
     if (auth) {
       return user
     }
     throw Error('Incorrect Password')
+  } else {
+    throw Error('Account is disabled')
   }
 
   throw Error('Incorrect Email')
 }
 userSchema.statics.adminLogin = async function (email, password) {
   const user = await this.findOne({ email })
-  if (user) {
+  if (user && user.enabled) {
     if (user.role === 'ADMIN') {
       const auth = await bcrypt.compare(password, user.password)
       if (auth) {
@@ -69,6 +69,8 @@ userSchema.statics.adminLogin = async function (email, password) {
     } else {
       throw Error('Unauthorized Email')
     }
+  } else {
+    throw Error('Account is disabled')
   }
 
   throw Error('Incorrect Email')

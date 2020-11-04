@@ -10,6 +10,9 @@ const handleErrors = (err) => {
   if (err.message === 'Unauthorized Email') {
     errors.email = 'Unauthorized Email'
   }
+  if (err.message === 'Account is disabled') {
+    errors.email = 'Account is disabled'
+  }
 
   // Incorrect email
   if (err.message === 'Incorrect Email') {
@@ -69,4 +72,7 @@ module.exports.admin_login_post = async (req, res) => {
 module.exports.admin_logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 })
   res.redirect('/admin/login')
+}
+module.exports.admin_get = (req, res) => {
+  res.redirect('/admin/movies')
 }

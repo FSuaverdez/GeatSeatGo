@@ -1,4 +1,5 @@
 const Movie = require('../models/Movie')
+const User = require('../models/User')
 
 const handleErrors = (err) => {
   console.log(err.message, err.code)
@@ -16,9 +17,22 @@ const handleErrors = (err) => {
 }
 
 module.exports.movies_get = async (req, res) => {
-  const movies = await Movie.find().sort({ createdAt: 'desc' })
+  let movieQuery = Movie.find().sort({ createdAt: 'desc' })
+  let userQuery = User.find().sort({ createdAt: 'desc' })
+  if (req.query.title != null && req.query.title != '') {
+    movieQuery = movieQuery.regex('title', new RegExp(req.query.title, 'i'))
+  }
+  if (req.query.email != null && req.query.email != '') {
+    userQuery = userQuery.regex('email', new RegExp(req.query.email, 'i'))
+  }
 
-  res.render('admin/index', { movies })
+  try {
+    const movies = await movieQuery.exec()
+    const users = await userQuery.exec()
+    res.render('admin/movie', { movies, users, search: req.query })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 module.exports.movies_post = async (req, res) => {

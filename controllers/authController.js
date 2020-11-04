@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const handleErrors = (err) => {
@@ -9,6 +10,10 @@ const handleErrors = (err) => {
   // Incorrect email
   if (err.message === 'Incorrect Email') {
     errors.email = 'Email is not registered'
+  }
+
+  if (err.message === 'Account is disabled') {
+    errors.email = 'Account is disabled'
   }
 
   // Incorrect passowrd
@@ -57,7 +62,9 @@ module.exports.login_get = (req, res) => {
 }
 
 module.exports.signup_post = async (req, res) => {
-  const { email, password } = req.body
+  let { email, password } = req.body
+  const salt = await bcrypt.genSalt()
+  password = await bcrypt.hash(password, salt)
 
   try {
     let id = new mongoose.Types.ObjectId().toHexString()

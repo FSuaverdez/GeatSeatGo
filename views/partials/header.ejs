@@ -11,8 +11,8 @@
   <nav>
     <h1><a href="/">Quaranteam</a></h1>
     <ul>
-      <% if(user) {%>
-      <li>Welcome, <%= user.email %> </li>
+      <% if(currentUser) {%>
+      <li>Welcome, <%= currentUser.email %> </li>
       <li><a href="/logout">Log Out</a></li>
       <% }else { %>
       <li><a href="/login">Log In</a></li>
