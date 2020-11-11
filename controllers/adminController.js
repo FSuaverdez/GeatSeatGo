@@ -10,6 +10,7 @@ const handleErrors = (err) => {
   if (err.message === 'Unauthorized Email') {
     errors.email = 'Unauthorized Email'
   }
+  
   if (err.message === 'Account is disabled') {
     errors.email = 'Account is disabled'
   }

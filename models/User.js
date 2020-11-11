@@ -51,7 +51,7 @@ userSchema.statics.login = async function (email, password) {
       return user
     }
     throw Error('Incorrect Password')
-  } else {
+  }else if(user && !user.enabled) {
     throw Error('Account is disabled')
   }
 
@@ -69,7 +69,7 @@ userSchema.statics.adminLogin = async function (email, password) {
     } else {
       throw Error('Unauthorized Email')
     }
-  } else {
+  } else if(user && !user.enabled) {
     throw Error('Account is disabled')
   }
 
