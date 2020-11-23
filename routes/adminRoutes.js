@@ -46,5 +46,10 @@ router.post(
   // requireAdminAuth,
   adminScheduleController.schedules_post
 )
+router.delete(
+  '/admin/schedules/:id',
+  requireAdminAuth,
+  adminScheduleController.schedules_delete
+)
 
 module.exports = router

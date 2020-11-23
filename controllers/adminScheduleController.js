@@ -32,3 +32,12 @@ module.exports.schedules_post = async (req, res) => {
     res.status(400).json({ errors })
   }
 }
+
+module.exports.schedules_delete = async (req, res) => {
+  try {
+    await Schedule.findByIdAndDelete(req.params.id)
+    res.status(201).json({ successful: true })
+  } catch (error) {
+    res.status(400).json({ error })
+  }
+}
