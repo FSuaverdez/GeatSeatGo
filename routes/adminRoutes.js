@@ -52,4 +52,10 @@ router.delete(
   adminScheduleController.schedules_delete
 )
 
+router.put(
+  '/admin/schedules/:id',
+  requireAdminAuth,
+  adminScheduleController.schedules_edit
+)
+
 module.exports = router

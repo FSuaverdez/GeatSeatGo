@@ -71,7 +71,8 @@
             <tr>
               <!-- <th></th> -->
               <th>Movie ID</th>
-              <th>DateTime</th>
+              <th>Date & Time</th>
+              <th>Cinema #</th>
               <!-- <th>Image Link</th>
                 <th>Trailer Link</th> -->
             </tr>
@@ -82,12 +83,13 @@
             <tr>
               <td><%=schedule.movieId%></td>
               <td><%=schedule.dateTime.toLocaleString()%></td>
+              <td><%=schedule.cinema%></td>
 
               <td>
                 <a href="#editMovieModal" class="btn btn-warning" data-toggle="modal"><span>View</span></a>
-                <a href="#editScheduleModal" class="btn btn-warning" data-movie="<%- schedule.movieId %>"
-                  data-cinema="<%- schedule.cinema %>" data-date="<%- schedule.dateTime %>"
-                  data-toggle="modal"><span>Edit</span></a>
+                <a href="#editScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
+                  data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
+                  data-date="<%- schedule.dateTime %>" data-toggle="modal"><span>Edit</span></a>
                 <a href="#deleteScheduleModal" class="btn btn-danger" data-id="<%- schedule._id %>"
                   data-toggle="modal"><span>Delete</span></a>
               </td>
@@ -267,11 +269,7 @@
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        console.log(form.movie.value)
-        console.log(form.cinema.value)
-        console.log(form.date.value)
-        const date = new Date(form.date.value)
-        console.log(date.getHours() > 12 ? date.getHours() % 12 : date.getHours(), date.getMinutes())
+
         const movieId = form.movie.value
         const cinema = form.cinema.value
         const dateTime = form.date.value
@@ -307,6 +305,7 @@
 
     $('#editScheduleModal').on('show.bs.modal', function (event) {
       let button = $(event.relatedTarget) // Button that triggered the modal
+      let id = button.data('id') // Extract info from data-* attributes
       let movieId = button.data('movie') // Extract info from data-* attributes
       let cinema = button.data('cinema') // Extract info from data-* attributes
       let dateTime = button.data('date') // Extract info from data-* attributes
@@ -316,6 +315,10 @@
       modal.find('.modal-title').text('Edit ')
       modal.find('#movie').val(movieId)
       modal.find('#cinema').val(cinema)
+      let date = new Date(dateTime)
+      date = "" + date.toISOString()
+      date = date.slice(0, 16)
+      modal.find('#date').val(date)
 
 
       const form = document.querySelector('#edit-form')
@@ -324,28 +327,29 @@
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const title = form.title.value
-        const description = form.description.value
-        const imgUrl = form.imgUrl.value
-        const trailerUrl = form.trailerUrl.value
+        const movieId = form.movie.value
+        const cinema = form.cinema.value
+        const dateTime = form.date.value
+        console.log(movieId, cinema, dateTime)
 
 
         try {
-          const res = await fetch('/admin/movies/' + id, {
+          const res = await fetch('/admin/schedules/' + id, {
             method: 'put',
-            body: JSON.stringify({ title, description, imgUrl, trailerUrl }),
+            body: JSON.stringify({ movieId, cinema, dateTime }),
             headers: { 'Content-Type': 'application/json' }
           })
           const data = await res.json()
 
-          if (data.movie) {
-            location.assign('/admin')
+          if (data.schedule) {
+            location.assign('/admin/schedules')
           }
 
-          if (data.errors.slug) {
-            titleError.textContent = "Title must contain normal characters"
+          if (data.errors) {
+            movieError.textContent = data.errors.movieId
+            dateError.textContent = data.errors.dateTime
+            cinemaError.textContent = data.errors.cinema
           }
-
 
 
         } catch (error) {

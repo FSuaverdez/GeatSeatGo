@@ -1,6 +1,20 @@
 const Movie = require('../models/Movie')
 const Schedule = require('../models/Schedule')
 const User = require('../models/User')
+const handleErrors = (err) => {
+  console.log(err.message, err.code)
+  const errors = { title: '', description: '', imgUrl: '', trailerUrl: '' }
+
+  // Validate email and password length
+  if (err.message.includes('movie validation failed')) {
+    Object.values(err.errors).forEach(({ properties }) => {
+      // console.log(properties)
+      errors[properties.path] = properties.message
+    })
+  }
+
+  return errors
+}
 
 module.exports.schedules_get = async (req, res) => {
   let scheduleQuery = Schedule.find().sort({ createdAt: 'desc' })
@@ -39,5 +53,20 @@ module.exports.schedules_delete = async (req, res) => {
     res.status(201).json({ successful: true })
   } catch (error) {
     res.status(400).json({ error })
+  }
+}
+
+module.exports.schedules_edit = async (req, res) => {
+  let schedule = await Schedule.findById(req.params.id)
+  schedule.movieId = req.body.movieId
+  schedule.cinema = req.body.cinema
+  schedule.dateTime = req.body.dateTime
+  try {
+    const editedSchedule = await schedule.save()
+    res.status(201).json({ schedule: editedSchedule._id })
+  } catch (err) {
+    const errors = handleErrors(err)
+    console.log(errors)
+    res.status(400).json({ errors })
   }
 }
