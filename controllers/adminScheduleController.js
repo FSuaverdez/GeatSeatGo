@@ -3,7 +3,7 @@ const Schedule = require('../models/Schedule')
 const User = require('../models/User')
 const handleErrors = (err) => {
   console.log(err.message, err.code)
-  const errors = { title: '', description: '', imgUrl: '', trailerUrl: '' }
+  const errors = {}
 
   // Validate email and password length
   if (err.message.includes('movie validation failed')) {
@@ -11,6 +11,9 @@ const handleErrors = (err) => {
       // console.log(properties)
       errors[properties.path] = properties.message
     })
+  }
+  if (err.message.includes('Cast to ObjectId failed')) {
+    errors.movieId = 'Movie Not Found'
   }
 
   return errors
@@ -39,6 +42,7 @@ module.exports.schedules_post = async (req, res) => {
     dateTime: req.body.dateTime,
   })
   try {
+    const movie = await Movie.findById(req.body.movieId)
     schedule = await schedule.save()
     res.status(201).json({ schedule: schedule._id })
   } catch (err) {
@@ -62,6 +66,7 @@ module.exports.schedules_edit = async (req, res) => {
   schedule.cinema = req.body.cinema
   schedule.dateTime = req.body.dateTime
   try {
+    const movie = await Movie.findById(req.body.movieId)
     const editedSchedule = await schedule.save()
     res.status(201).json({ schedule: editedSchedule._id })
   } catch (err) {

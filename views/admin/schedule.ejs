@@ -170,7 +170,7 @@
                   <% }) %>
                 </datalist>
 
-                <div class="movie error"></div>
+                <div class="edit movie error"></div>
               </div>
               <div class="form-group">
                 <label for="cinema">Cinema : </label>
@@ -181,12 +181,12 @@
                   <option value="4">Cinema 4</option>
                   <option value="5">Cinema 5</option>
                 </select>
-                <div class="cinema error"></div>
+                <div class="edit cinema error"></div>
               </div>
               <div class="form-group">
                 <label for="date">Date : </label>
                 <input type="datetime-local" id="date" name="date" required>
-                <div class="date error"></div>
+                <div class="edit date error"></div>
               </div>
               <div class="form-group">
 
@@ -297,7 +297,7 @@
 
 
         } catch (error) {
-          location.assign('/admin')
+          location.assign('/admin/schedules')
         }
 
       })
@@ -332,6 +332,10 @@
         const dateTime = form.date.value
         console.log(movieId, cinema, dateTime)
 
+        const movieError = document.querySelector('.edit.movie.error')
+        const cinemaError = document.querySelector('.edit.cinema.error')
+        const dateError = document.querySelector('.edit.date.error')
+
 
         try {
           const res = await fetch('/admin/schedules/' + id, {
@@ -353,7 +357,7 @@
 
 
         } catch (error) {
-          console.log(error)
+          location.assign('/admin/schedules')
         }
 
       })
