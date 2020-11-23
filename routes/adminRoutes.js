@@ -3,6 +3,7 @@ const authController = require('../controllers/authController')
 const adminController = require('../controllers/adminController')
 const adminMovieController = require('../controllers/adminMovieController')
 const adminUserController = require('../controllers/adminUserController')
+const adminScheduleController = require('../controllers/adminScheduleController')
 const { requireAdminAuth } = require('../middlewares/authMiddleware')
 const router = Router()
 
@@ -33,5 +34,17 @@ router.put(
 router.get('/admin/users', requireAdminAuth, adminUserController.users_get)
 router.post('/admin/users', requireAdminAuth, adminUserController.users_post)
 router.put('/admin/users/:id', requireAdminAuth, adminUserController.users_edit)
+
+// Schedule
+router.get(
+  '/admin/schedules',
+  requireAdminAuth,
+  adminScheduleController.schedules_get
+)
+router.post(
+  '/admin/schedules',
+  // requireAdminAuth,
+  adminScheduleController.schedules_post
+)
 
 module.exports = router

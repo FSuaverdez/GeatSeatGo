@@ -58,8 +58,9 @@
                 <div class="form-row form-row-end">
                   <button class="btn btn-success mx-3" type="submit">Search</button>
                 </div>
-                <a href=" #addMovieModal" class="btn btn-success ml-2" data-toggle="modal"><span>Add
-                    Movie</span></a>
+                <a href=" #addScheduleModal" class="btn btn-success ml-2" data-movies=<%- movies %>
+                  data-toggle="modal"><span>Add
+                    Schedule</span></a>
               </form>
               <!-- <a href="#deleteMovieModal" class="btn btn-danger" data-toggle="modal"><span>Delete Movie</span></a> -->
             </div>
@@ -69,31 +70,22 @@
           <thead>
             <tr>
               <!-- <th></th> -->
-              <th>Movie Title</th>
-              <th>Description</th>
+              <th>Movie ID</th>
+              <th>DateTime</th>
               <!-- <th>Image Link</th>
                 <th>Trailer Link</th> -->
             </tr>
           </thead>
           <tbody>
-            <% if (movies) { %>
-            <% movies.forEach(movie => { %>
+            <% if (schedules) { %>
+            <% schedules.forEach(schedule =>{ %>
             <tr>
-              <td><%=movie.title.slice(0,40)%></td>
-              <td><%=movie.description.slice(0,40) +"..."%></td>
-              <!-- <td><a href="<%=movie.imgUrl%>"><%=movie.imgUrl.slice(0,10) +"...." %></a></td>
-                    <td>
-                      <a href="<%= movie.trailerUrl%>">
-                        <%- movie.trailerUrl.slice(0,3) +"...." %>
-                      </a>
-                    </td> -->
+              <td><%=schedule.movieId%></td>
+              <td><%=schedule.dateTime.toLocaleString()%></td>
+
               <td>
-                <a href="#editMovieModal" data-id="<%- movie._id %>" data-title="<%- movie.title %>"
-                  data-description="<%- movie.description %>" data-img-url="<%- movie.imgUrl %>"
-                  data-trailer-url="<%- movie.trailerUrl %>" class="btn btn-warning"
-                  data-toggle="modal"><span>Edit</span></a>
-                <a href="#deleteMovieModal" data-id="<%- movie._id %>" class="btn btn-danger"
-                  data-toggle="modal"><span>Delete</span></a>
+                <a href="#editMovieModal" class="btn btn-warning" data-toggle="modal"><span>Edit</span></a>
+                <a href="#deleteMovieModal" class="btn btn-danger" data-toggle="modal"><span>Delete</span></a>
               </td>
             </tr>
             <% }) %>
@@ -102,32 +94,46 @@
         </table>
       </div>
     </div>
-    <!-- ADD MOVIE MODAL -->
-    <div id="addMovieModal" class="modal fade">
+    <!-- ADD Schedule MODAL -->
+    <div id="addScheduleModal" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <form autocomplete="off" id="add-form">
             <div class="modal-header">
-              <h4 class="modal-title">Edit Movie</h4>
+              <h4 class="modal-title">Add Schedule</h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="title">Title</label>
-                <input name="title" id="title" type="text" class="form-control" required>
-                <div class="title error"></div>
+                <label for="movie">Movie ID</label>
+                <input name="movie" id="movie" type="text" list="brow" class="form-control" required>
+
+                <datalist id="brow">
+                  <% movies.forEach(movie =>{ %>
+                  <option value="<%- movie._id %>"><%- movie.title %></option>
+                  <% }) %>
+                </datalist>
+
+                <div class="movie error"></div>
               </div>
               <div class="form-group">
-                <label for="description">Description</label>
-                <textarea name="description" id="description" rows="7" class="form-control" required></textarea>
+                <label for="cinema">Cinema : </label>
+                <select name="cinema" id="cinema" required>
+                  <option value="1">Cinema 1</option>
+                  <option value="2">Cinema 2</option>
+                  <option value="3">Cinema 3</option>
+                  <option value="4">Cinema 4</option>
+                  <option value="5">Cinema 5</option>
+                </select>
+                <div class="cinema error"></div>
               </div>
               <div class="form-group">
-                <label for="img-url">Image Link</label>
-                <input name="imgUrl" id="img-url" type="text" class="form-control" required>
+                <label for="date">Date : </label>
+                <input type="datetime-local" id="date" name="date" required>
+                <div class="date error"></div>
               </div>
               <div class="form-group">
-                <label for="trailer-url">Trailer Link</label>
-                <input type="text" name="trailerUrl" id="trailer-url" class="form-control" required>
+
               </div>
             </div>
             <div class="modal-footer">
@@ -154,8 +160,14 @@
                 <div class="edit title error"></div>
               </div>
               <div class="form-group">
-                <label for="description">Description</label>
-                <textarea name="description" id="description" class="form-control" required></textarea>
+                <label for="cinema">Cinema</label>
+                <select name="cinema" id="cinema">
+                  <option value="1">Cinema 1</option>
+                  <option value="2">Cinema 2</option>
+                  <option value="3">Cinema 3</option>
+                  <option value="4">Cinema 4</option>
+                  <option value="5">Cinema 5</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="img-url">Image Link</label>
@@ -224,50 +236,53 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
 
-    $('#addMovieModal').on('show.bs.modal', function (event) {
+    $('#addScheduleModal').on('show.bs.modal', function (event) {
       let button = $(event.relatedTarget) // Button that triggered the modal
       let id = button.data('id') // Extract info from data-* attributes
-      let title = button.data('title') // Extract info from data-* attributes
-      let description = button.data('description') // Extract info from data-* attributes
-      let imgUrl = button.data('img-url') // Extract info from data-* attributes
-      let trailerUrl = button.data('trailer-url')
+
       // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       let modal = $(this)
-      modal.find('.modal-title').text('Add Movie')
-      modal.find('#title').val(title)
-      modal.find('#description').val(description)
-      modal.find('#img-url').val(imgUrl)
-      modal.find('#trailer-url').val(trailerUrl)
+      modal.find('.modal-title').text('Add Schedule')
+
 
       const form = document.querySelector('#add-form')
-      const titleError = document.querySelector('.title.error')
+      const movieError = document.querySelector('.movie.error')
+      const cinemaError = document.querySelector('.cinema.error')
+      const dateError = document.querySelector('.date.error')
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const title = form.title.value
-        const description = form.description.value
-        const imgUrl = form.imgUrl.value
-        const trailerUrl = form.trailerUrl.value
+        console.log(form.movie.value)
+        console.log(form.cinema.value)
+        console.log(form.date.value)
+        const date = new Date(form.date.value)
+        console.log(date.getHours() > 12 ? date.getHours() % 12 : date.getHours(), date.getMinutes())
+        const movieId = form.movie.value
+        const cinema = form.cinema.value
+        const dateTime = form.date.value
+
 
 
         try {
-          const res = await fetch('/admin/movies', {
+          const res = await fetch('/admin/schedules', {
             method: 'POST',
-            body: JSON.stringify({ title, description, imgUrl, trailerUrl }),
+            body: JSON.stringify({ movieId, cinema, dateTime }),
             headers: { 'Content-Type': 'application/json' }
           })
           const data = await res.json()
           console.log(data)
 
-          if (data.movie) {
-            location.assign('/admin')
+          if (data.schedule) {
+            location.assign('/admin/schedules')
           }
 
-          if (data.errors.slug) {
-            titleError.textContent = "Title must contain normal characters"
+          if (data.errors) {
+            movieError.textContent = data.errors.movieId
+            dateError.textContent = data.errors.dateTime
+            cinemaError.textContent = data.errors.cinema
           }
 
 

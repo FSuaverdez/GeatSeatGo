@@ -28,8 +28,7 @@ module.exports.movies_get = async (req, res) => {
 
   try {
     const movies = await movieQuery.exec()
-    const users = await userQuery.exec()
-    res.render('admin/movie', { movies, users, search: req.query })
+    res.render('admin/movie', { movies, search: req.query })
   } catch (error) {
     console.log(error)
   }
