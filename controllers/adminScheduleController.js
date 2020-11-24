@@ -15,6 +15,9 @@ const handleErrors = (err) => {
   if (err.message.includes('Cast to ObjectId failed')) {
     errors.movieId = 'Movie Not Found'
   }
+  if (err.message.includes('schedule validation failed')) {
+    errors.dateTime = 'Input Valid Date'
+  }
 
   return errors
 }
