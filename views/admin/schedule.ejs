@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/adminpage.css">
+  <link rel="stylesheet" href="/adminSchedule.css">
 </head>
 
 <body>
@@ -50,10 +51,10 @@
               <h2>Manage Movies<h2>
             </div>
             <div class="col-sm-6">
-              <form autocomplete="off" class="form-row" action="/admin/movies" method="get">
+              <form autocomplete="off" class="form-row" action="/admin/schedules" method="get">
                 <div class="for-item align-middle">
-                  <label for="title">Search Title: </label>
-                  <input class="search-title" type="text" name="title" value="<%= search.title %>">
+                  <label for="id">Search ID: </label>
+                  <input class="search-title" type="text" name="id" value="<%= search.title %>">
                 </div>
                 <div class="form-row form-row-end">
                   <button class="btn btn-success mx-3" type="submit">Search</button>
@@ -70,7 +71,7 @@
           <thead>
             <tr>
               <!-- <th></th> -->
-              <th>Movie ID</th>
+              <th>Schedule ID</th>
               <th>Date & Time</th>
               <th>Cinema #</th>
               <!-- <th>Image Link</th>
@@ -81,12 +82,14 @@
             <% if (schedules) { %>
             <% schedules.forEach(schedule =>{ %>
             <tr>
-              <td><%=schedule.movieId%></td>
+              <td><%=schedule._id%></td>
               <td><%=schedule.dateTime.toLocaleString()%></td>
               <td><%=schedule.cinema%></td>
 
               <td>
-                <a href="#editMovieModal" class="btn btn-warning" data-toggle="modal"><span>View</span></a>
+                <a href="#viewScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
+                  data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
+                  data-date="<%- schedule.dateTime %>" data-toggle="modal"><span>View</span></a>
                 <a href="#editScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
                   data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
                   data-date="<%- schedule.dateTime %>" data-toggle="modal"><span>Edit</span></a>
@@ -221,183 +224,288 @@
         </div>
       </div>
     </div>
-
-
-    <!-- OTHERS PILL -->
-    <div id="other" class="container tab-pane fade"><br>
-      <div class="container">
-        <div class="row">
-          <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-              <h1>In Progress</h1>
-              <p>You haven't unlock this part yet.</p>
+    <!-- EDIT SCHEDULE MODAL    -->
+    <div id="viewScheduleModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form autocomplete="off" id="edit-form">
+            <div class="modal-header">
+              <h4 class="modal-title">View Schedule</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-          </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="movie">Movie ID</label>
+                <input disabled name="movie" id="movie" type="text" list="brow" class="form-control" required>
+
+                <datalist id="brow">
+                  <% movies.forEach(movie =>{ %>
+                  <option value="<%- movie._id %>"><%- movie.title %></option>
+                  <% }) %>
+                </datalist>
+
+                <div class="edit movie error"></div>
+              </div>
+              <div class="form-group">
+                <label for="cinema">Cinema : </label>
+                <select disabled name="cinema" id="cinema" required>
+                  <option value="1">Cinema 1</option>
+                  <option value="2">Cinema 2</option>
+                  <option value="3">Cinema 3</option>
+                  <option value="4">Cinema 4</option>
+                  <option value="5">Cinema 5</option>
+                </select>
+                <div class="edit cinema error"></div>
+              </div>
+              <div class="form-group">
+                <label for="date">Date : </label>
+                <input disabled type="datetime-local" id="date" name="date" required>
+                <div class="edit date error"></div>
+              </div>
+              <div class="form-group">
+                <ul class="showcase">
+                  <li>
+                    <div class="seat"></div>
+                    <small>N/A</small>
+                  </li>
+
+                  <li>
+                    <div class="seat occupied"></div>
+                    <small>Occupied</small>
+                  </li>
+                </ul>
+
+                <div class="movie-container">
+                  <div class="screen"></div>
+
+                  <div class="seat-container">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-info" data-dismiss="modal" value="Done">
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-  <br>
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-container text-center">
-      <p>Getseatgo &copy; All Rights Reserved 2020</p>
-    </div>
-  </footer>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-container text-center">
+        <p>Getseatgo &copy; All Rights Reserved 2020</p>
+      </div>
+    </footer>
 
-    $('#addScheduleModal').on('show.bs.modal', function (event) {
-      let button = $(event.relatedTarget) // Button that triggered the modal
-      let id = button.data('id') // Extract info from data-* attributes
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
 
-      // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      let modal = $(this)
-      modal.find('.modal-title').text('Add Schedule')
+      $('#addScheduleModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let id = button.data('id') // Extract info from data-* attributes
 
-
-      const form = document.querySelector('#add-form')
-      const movieError = document.querySelector('.movie.error')
-      const cinemaError = document.querySelector('.cinema.error')
-      const dateError = document.querySelector('.date.error')
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        let modal = $(this)
+        modal.find('.modal-title').text('Add Schedule')
 
 
-        const movieId = form.movie.value
-        const cinema = form.cinema.value
-        const dateTime = form.date.value
+        const form = document.querySelector('#add-form')
+        const movieError = document.querySelector('.movie.error')
+        const cinemaError = document.querySelector('.cinema.error')
+        const dateError = document.querySelector('.date.error')
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+
+          const movieId = form.movie.value
+          const cinema = form.cinema.value
+          const dateTime = form.date.value
 
 
 
-        try {
-          const res = await fetch('/admin/schedules', {
-            method: 'POST',
-            body: JSON.stringify({ movieId, cinema, dateTime }),
-            headers: { 'Content-Type': 'application/json' }
-          })
-          const data = await res.json()
-          console.log(data)
+          try {
+            const res = await fetch('/admin/schedules', {
+              method: 'POST',
+              body: JSON.stringify({ movieId, cinema, dateTime }),
+              headers: { 'Content-Type': 'application/json' }
+            })
+            const data = await res.json()
+            console.log(data)
 
-          if (data.schedule) {
+            if (data.schedule) {
+              location.assign('/admin/schedules')
+            }
+
+            if (data.errors) {
+              movieError.textContent = data.errors.movieId
+              dateError.textContent = data.errors.dateTime
+              cinemaError.textContent = data.errors.cinema
+            }
+
+
+          } catch (error) {
             location.assign('/admin/schedules')
           }
 
-          if (data.errors) {
-            movieError.textContent = data.errors.movieId
-            dateError.textContent = data.errors.dateTime
-            cinemaError.textContent = data.errors.cinema
+        })
+      })
+
+      $('#editScheduleModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let id = button.data('id') // Extract info from data-* attributes
+        let movieId = button.data('movie') // Extract info from data-* attributes
+        let cinema = button.data('cinema') // Extract info from data-* attributes
+        let dateTime = button.data('date') // Extract info from data-* attributes
+
+
+        let modal = $(this)
+        modal.find('.modal-title').text('Edit Schedule')
+        modal.find('#movie').val(movieId)
+        modal.find('#cinema').val(cinema)
+        let date = new Date(dateTime)
+        date = "" + date.toISOString()
+        date = date.slice(0, 16)
+        modal.find('#date').val(date)
+
+
+        const form = document.querySelector('#edit-form')
+        const titleError = document.querySelector('.edit.title.error')
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const movieId = form.movie.value
+          const cinema = form.cinema.value
+          const dateTime = form.date.value
+          console.log(movieId, cinema, dateTime)
+
+          const movieError = document.querySelector('.edit.movie.error')
+          const cinemaError = document.querySelector('.edit.cinema.error')
+          const dateError = document.querySelector('.edit.date.error')
+
+
+          try {
+            const res = await fetch('/admin/schedules/' + id, {
+              method: 'put',
+              body: JSON.stringify({ movieId, cinema, dateTime }),
+              headers: { 'Content-Type': 'application/json' }
+            })
+            const data = await res.json()
+
+            if (data.schedule) {
+              location.assign('/admin/schedules')
+            }
+
+            if (data.errors) {
+              movieError.textContent = data.errors.movieId
+              dateError.textContent = data.errors.dateTime
+              cinemaError.textContent = data.errors.cinema
+            }
+
+
+          } catch (error) {
+            location.assign('/admin/schedules')
           }
 
-
-        } catch (error) {
-          location.assign('/admin/schedules')
-        }
-
+        })
       })
-    })
 
-    $('#editScheduleModal').on('show.bs.modal', function (event) {
-      let button = $(event.relatedTarget) // Button that triggered the modal
-      let id = button.data('id') // Extract info from data-* attributes
-      let movieId = button.data('movie') // Extract info from data-* attributes
-      let cinema = button.data('cinema') // Extract info from data-* attributes
-      let dateTime = button.data('date') // Extract info from data-* attributes
-
-
-      let modal = $(this)
-      modal.find('.modal-title').text('Edit ')
-      modal.find('#movie').val(movieId)
-      modal.find('#cinema').val(cinema)
-      let date = new Date(dateTime)
-      date = "" + date.toISOString()
-      date = date.slice(0, 16)
-      modal.find('#date').val(date)
+      $('#viewScheduleModal').on('show.bs.modal', async function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let id = button.data('id') // Extract info from data-* attributes
+        let movieId = button.data('movie') // Extract info from data-* attributes
+        let cinema = button.data('cinema') // Extract info from data-* attributes
+        let dateTime = button.data('date') // Extract info from data-* attributes
 
 
-      const form = document.querySelector('#edit-form')
-      const titleError = document.querySelector('.edit.title.error')
+        let modal = $(this)
+        modal.find('.modal-title').text('View Schedule ')
+        modal.find('#movie').val(movieId)
+        modal.find('#cinema').val(cinema)
+        let date = new Date(dateTime)
+        date = "" + date.toISOString()
+        date = date.slice(0, 16)
+        modal.find('#date').val(date)
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const movieId = form.movie.value
-        const cinema = form.cinema.value
-        const dateTime = form.date.value
-        console.log(movieId, cinema, dateTime)
-
-        const movieError = document.querySelector('.edit.movie.error')
-        const cinemaError = document.querySelector('.edit.cinema.error')
-        const dateError = document.querySelector('.edit.date.error')
-
+        const seatContainer = document.querySelector('.seat-container')
 
         try {
+
           const res = await fetch('/admin/schedules/' + id, {
-            method: 'put',
-            body: JSON.stringify({ movieId, cinema, dateTime }),
-            headers: { 'Content-Type': 'application/json' }
-          })
-          const data = await res.json()
+            method: 'get'
+          });
 
-          if (data.schedule) {
-            location.assign('/admin/schedules')
-          }
 
-          if (data.errors) {
-            movieError.textContent = data.errors.movieId
-            dateError.textContent = data.errors.dateTime
-            cinemaError.textContent = data.errors.cinema
-          }
 
+          const { schedule } = await res.json()
+
+          console.log(schedule)
+
+          seatContainer.innerHTML = schedule.seats
+            .map((row) => {
+              let seats = ''
+              row.map((seat) => {
+                seats += `<div class="${seat.taken ? 'seat occupied' : 'seat'}" id="${seat.name
+                  }"></div>`
+              })
+              return `<div class="row">
+  ${seats}
+  </div>`
+            })
+            .join('')
+
+          console.log(seatHTML)
 
         } catch (error) {
-          location.assign('/admin/schedules')
+
         }
 
-      })
-    })
-
-
-    $('#deleteScheduleModal').on('show.bs.modal', function (event) {
-      let button = $(event.relatedTarget) // Button that triggered the modal
-      let id = button.data('id') // Extract info from data-* attributes
-
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      let modal = $(this)
-
-      const form = document.querySelector('#delete-form')
-      console.log(form)
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        try {
-
-          const res = await fetch(`/admin/schedules/` + id, {
-            method: 'delete',
-          })
-          const data = await res.json()
-
-          if (data.successful) {
-            location.assign('/admin/schedules')
-          }
-        } catch (error) {
-          location.assign('/admin/schedules')
-        }
 
 
       })
 
-    })
 
-  </script>
+      $('#deleteScheduleModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let id = button.data('id') // Extract info from data-* attributes
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        let modal = $(this)
+
+        const form = document.querySelector('#delete-form')
+        console.log(form)
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          try {
+
+            const res = await fetch(`/admin/schedules/` + id, {
+              method: 'delete',
+            })
+            const data = await res.json()
+
+            if (data.successful) {
+              location.assign('/admin/schedules')
+            }
+          } catch (error) {
+            location.assign('/admin/schedules')
+          }
+
+
+        })
+
+      })
+
+    </script>
 </body>
 
 </html>

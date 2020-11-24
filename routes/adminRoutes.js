@@ -57,5 +57,10 @@ router.put(
   requireAdminAuth,
   adminScheduleController.schedules_edit
 )
+router.get(
+  '/admin/schedules/:id',
+  requireAdminAuth,
+  adminScheduleController.schedulesId_get
+)
 
 module.exports = router

@@ -20,15 +20,17 @@ const handleErrors = (err) => {
 }
 
 module.exports.schedules_get = async (req, res) => {
-  let scheduleQuery = Schedule.find().sort({ createdAt: 'desc' })
+  let schedules = await Schedule.find().sort({ createdAt: 'desc' })
   if (req.query.id != null && req.query.id != '') {
-    scheduleQuery = scheduleQuery.regex('_id', new RegExp(req.query.title, 'i'))
+    schedules = schedules.filter((schedule) => {
+      const id = '' + schedule._id
+      return id.includes(req.query.id)
+    })
   }
 
   try {
     const movies = await Movie.find().sort({ createdAt: 'desc' })
 
-    const schedules = await scheduleQuery.exec()
     res.render('admin/schedule', { movies, schedules, search: req.query })
   } catch (error) {
     console.log(error)
@@ -69,6 +71,16 @@ module.exports.schedules_edit = async (req, res) => {
     const movie = await Movie.findById(req.body.movieId)
     const editedSchedule = await schedule.save()
     res.status(201).json({ schedule: editedSchedule._id })
+  } catch (err) {
+    const errors = handleErrors(err)
+    console.log(errors)
+    res.status(400).json({ errors })
+  }
+}
+module.exports.schedulesId_get = async (req, res) => {
+  try {
+    let schedule = await Schedule.findById(req.params.id)
+    res.status(201).json({ schedule })
   } catch (err) {
     const errors = handleErrors(err)
     console.log(errors)

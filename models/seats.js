@@ -2,15 +2,15 @@ module.exports = [
   [
     {
       name: 'A1',
-      taken: true,
+      taken: false,
     },
     {
       name: 'A2',
-      taken: true,
+      taken: false,
     },
     {
       name: 'A3',
-      taken: true,
+      taken: false,
     },
     {
       name: 'A4',
