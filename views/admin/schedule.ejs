@@ -308,17 +308,24 @@
         let button = $(event.relatedTarget) // Button that triggered the modal
         let id = button.data('id') // Extract info from data-* attributes
 
+
+
         // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         let modal = $(this)
         modal.find('.modal-title').text('Add Schedule')
-
+        modal.find('#cinema').val(1)
+        modal.find('#date').val(date)
 
         const form = document.querySelector('#add-form')
         const movieError = document.querySelector('.movie.error')
         const cinemaError = document.querySelector('.cinema.error')
         const dateError = document.querySelector('.date.error')
+
+        movieError.textContent = ''
+        dateError.textContent = ''
+        cinemaError.textContent = ''
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -365,6 +372,7 @@
         let dateTime = button.data('date') // Extract info from data-* attributes
 
 
+
         let modal = $(this)
         modal.find('.modal-title').text('Edit Schedule')
         modal.find('#movie').val(movieId)
@@ -378,6 +386,14 @@
         const form = document.querySelector('#edit-form')
         const titleError = document.querySelector('.edit.title.error')
 
+        const movieError = document.querySelector('.edit.movie.error')
+        const cinemaError = document.querySelector('.edit.cinema.error')
+        const dateError = document.querySelector('.edit.date.error')
+
+        movieError.textContent = ''
+        dateError.textContent = ''
+        cinemaError.textContent = ''
+
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
 
@@ -386,9 +402,7 @@
           const dateTime = form.date.value
           console.log(movieId, cinema, dateTime)
 
-          const movieError = document.querySelector('.edit.movie.error')
-          const cinemaError = document.querySelector('.edit.cinema.error')
-          const dateError = document.querySelector('.edit.date.error')
+
 
 
           try {
@@ -423,6 +437,7 @@
         let movieId = button.data('movie') // Extract info from data-* attributes
         let cinema = button.data('cinema') // Extract info from data-* attributes
         let dateTime = button.data('date') // Extract info from data-* attributes
+
 
 
         let modal = $(this)
