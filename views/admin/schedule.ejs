@@ -315,6 +315,7 @@
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         let modal = $(this)
         modal.find('.modal-title').text('Add Schedule')
+        modal.find('#movie').val('')
         modal.find('#cinema').val(1)
         modal.find('#date').val(date)
 
