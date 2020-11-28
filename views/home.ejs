@@ -1,15 +1,273 @@
-<%- include('partials/header'); -%>
+<!DOCTYPE html>
+<html lang="en">
 
-<header>
-  <div class="smoothie">
-    <img src="/smoothie.png" alt="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GETSEATGO</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-md navbar-light mb-2" style="background-color: #fbfcfd">
+    <div class="container-fluid">
+      <a href="index.html" class="navbar-brand mr-5"><img src="images/logos.png" width="" height=""
+          class="d-inline-block align-top" alt="" loading="lazy">
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="html/movies.html">MOVIES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="html/about.html">ABOUT</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="html/signup.html">SIGN UP</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="html/login.html">LOGIN</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="1500" data-pause="hover">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="images/avengers.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/jokes.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/toy.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/captmarvel.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/harley.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/lion.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/frozen2.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="images/yourname.jpg" class="d-block w-100">
+      </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </a>
+    </div>
   </div>
-  <div class="headings">
-    <h2>Quaranteam Recipes</h2>
-    <h3>By Ninjas For Ninjas</h3>
-    <a href="/smoothies" class="btn">View Recipes</a>
+
+  <br>
+
+  <div class="container">
+    <ul class="nav nav-pills nav-justified" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#showing">NOW SHOWING</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#soon">COMING SOON</a>
+      </li>
+    </ul>
+    <br>
   </div>
-</header>
 
+  <div class="tab-content">
+    <div id="showing" class="container tab-pane active"><br>
+      <div class="container">
+        <div class="row">
 
-<%- include('partials/footer'); -%>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/aiwposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h6 class="card-title">Avengers: Infinity War<h6>
+                    <h6 class="card-text">Cinema 1 <br /><br />7:00 am <br /> 11:00 am <br /> 3:00 pm <br /> 7:00 pm
+                    </h6>
+                    <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/jokerposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Joker</h4>
+                <h6 class="card-text">Cinema 2 <br /><br />9:00 am <br /> 11:00 am <br /> 1:00 pm <br /> 3:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/ts4poster.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Toy Story 4</h4>
+                <h6 class="card-text">Cinema 3 <br /><br />9:00 am <br /> 11:00 am <br /> 1:00 pm <br /> 3:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/wwposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h6 class="card-title">Wonder Woman</h6>
+                <h6 class="card-text">Cinema 4 <br /><br />10:00 am <br /> 1:00 pm <br /> 4:00 pm <br /> 7:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/lkposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">The Lion King</h4>
+                <h6 class="card-text">Cinema 5 <br /><br />8:00 am <br /> 11:00 am <br /> 2:00 pm <br /> 5:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/bopposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Birds of Prey</h4>
+                <h6 class="card-text">Cinema 6 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/f2poster.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Frozen 2</h4>
+                <h6 class="card-text">Cinema 7 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/ynposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Your Name.</h4>
+                <h6 class="card-text">Cinema 8 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="images/ynposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Your Name.</h4>
+                <h6 class="card-text">Cinema 8 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div id="soon" class="container tab-pane fade">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="img/aiwposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h6 class="card-title">Avengers: Infinity War<h6>
+                    <h6 class="card-text">Cinema 1 <br /><br />7:00 am <br /> 11:00 am <br /> 3:00 pm <br /> 7:00 pm
+                    </h6>
+                    <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="img/jokerposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Joker</h4>
+                <h6 class="card-text">Cinema 2 <br /><br />9:00 am <br /> 11:00 am <br /> 1:00 pm <br /> 3:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="img/f2poster.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Frozen 2</h4>
+                <h6 class="card-text">Cinema 7 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <img class="card-img-top" src="img/ynposter.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Your Name.</h4>
+                <h6 class="card-text">Cinema 8 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
+                <a href="#" class="btn btn-primary">See More</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-container text-center">
+    <a href="#" class="fa fa-facebook-square" style="font-size:36px; color:gray"></a>
+    <a href="#" class="fa fa-instagram" style="font-size:36px; color:gray"></a>
+    <a href="#" class="fa fa-twitter-square" style="font-size:36px; color:gray"></a>
+    <br>
+
+    <div class="footer-link">
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookies Policy</a>
+      <a href="#">FAQs</a>
+      <a href="#">Customer Service</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <p>Getseatgo &copy; All Rights Reserved 2020</p>
+  </div>
+
+</body>
+
+</html>

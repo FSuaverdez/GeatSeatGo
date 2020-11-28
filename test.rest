@@ -1,1 +1,7 @@
-POST http://localhost:3000/admin/schedules
+PUT http://localhost:3000/admin/orders
+Content-Type: application/json
+
+{
+  "scheduleId": "5fc1efd8113cfa16a02c29fd",
+  "seats":["A2","A5","A6"]
+}

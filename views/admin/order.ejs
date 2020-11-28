@@ -26,7 +26,7 @@
   <div class="container">
     <ul class="nav nav-pills nav-justified">
       <li class="nav-item">
-        <a class="nav-link active" href="/admin/movies">MOVIES</a>
+        <a class="nav-link " href="/admin/movies">MOVIES</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/admin/users">USERS</a>
@@ -35,7 +35,7 @@
         <a class="nav-link " href="/admin/schedules">Schedules</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="/admin/orders">Orders</a>
+        <a class="nav-link active" href="/admin/orders">Orders</a>
       </li>
     </ul>
     <br>
@@ -50,19 +50,18 @@
         <div class="table-title">
           <div class="row">
             <div class="col-sm-6">
-              <h2>Manage Movies<h2>
+              <h2>View Orders<h2>
             </div>
             <div class="col-sm-6">
-              <form autocomplete="off" class="form-row" action="/admin/movies" method="get">
+              <form autocomplete="off" class="form-row" action="/admin/orders" method="get">
                 <div class="for-item align-middle">
-                  <label for="title">Search Title: </label>
-                  <input class="search-title" type="text" name="title" value="<%= search.title %>">
+                  <label for="title">Search Order: </label>
+                  <input class="search-title" type="text" name="id">
                 </div>
                 <div class="form-row form-row-end">
                   <button class="btn btn-success mx-3" type="submit">Search</button>
                 </div>
-                <a href=" #addMovieModal" class="btn btn-success ml-2" data-toggle="modal"><span>Add
-                    Movie</span></a>
+
               </form>
               <!-- <a href="#deleteMovieModal" class="btn btn-danger" data-toggle="modal"><span>Delete Movie</span></a> -->
             </div>
@@ -72,32 +71,21 @@
           <thead>
             <tr>
               <!-- <th></th> -->
-              <th>Movie Title</th>
-              <th>Description</th>
+              <th>Order ID</th>
+              <th>Schedule ID</th>
+              <th>Seats</th>
               <!-- <th>Image Link</th>
                 <th>Trailer Link</th> -->
             </tr>
           </thead>
           <tbody>
-            <% if (movies) { %>
-            <% movies.forEach(movie => { %>
+            <% if (orders) { %>
+            <% orders.forEach(order => { %>
             <tr>
-              <td><%=movie.title.slice(0,40)%></td>
-              <td><%=movie.description.slice(0,40) +"..."%></td>
-              <!-- <td><a href="<%=movie.imgUrl%>"><%=movie.imgUrl.slice(0,10) +"...." %></a></td>
-                    <td>
-                      <a href="<%= movie.trailerUrl%>">
-                        <%- movie.trailerUrl.slice(0,3) +"...." %>
-                      </a>
-                    </td> -->
-              <td>
-                <a href="#editMovieModal" data-id="<%- movie._id %>" data-title="<%- movie.title %>"
-                  data-description="<%- movie.description %>" data-img-url="<%- movie.imgUrl %>"
-                  data-trailer-url="<%- movie.trailerUrl %>" class="btn btn-warning"
-                  data-toggle="modal"><span>Edit</span></a>
-                <a href="#deleteMovieModal" data-id="<%- movie._id %>" class="btn btn-danger"
-                  data-toggle="modal"><span>Delete</span></a>
-              </td>
+              <td><%=order._id%></td>
+              <td><%=order.scheduleId%></td>
+              <td><%=order.seats.join(', ')%></td>
+
             </tr>
             <% }) %>
             <% } %>

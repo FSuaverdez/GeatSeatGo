@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  background-color: #deefed;
+  color: #93a7a6;
+  overflow-x: hidden;
+  }
+
+  .navbar-nav li{
+    padding-right: 20px;
+  }
+
+  .nav-link{
+    font-size: 1.1em !important;
+  }
+
+  .nav-pills{
+    background-color: #fbfcfd;
+    font-size: 1.5em !important;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #eab354;
+  }
+
+  .carousel-item{
+    width: 100%;
+    height: 550px;
+  }
+
+  .btn-primary{
+  background-color: #eab354;
+  border-color: #eab354;
+  }
+
+  .row{
+    margin: 0 auto;
+  }
+
+  .col-md-3{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+
+  .col-md-8{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+
+  .col-md-4{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+
+  .footer-container{
+    background-color: #fbfcfd;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .footer-link a{
+    font-size: x-small;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: gray;
+  }
+
+  p{
+    font-size: smaller;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }

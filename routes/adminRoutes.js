@@ -5,6 +5,7 @@ const adminMovieController = require('../controllers/adminMovieController')
 const adminUserController = require('../controllers/adminUserController')
 const adminScheduleController = require('../controllers/adminScheduleController')
 const { requireAdminAuth } = require('../middlewares/authMiddleware')
+const adminOrderController = require('../controllers/adminOrderController')
 const router = Router()
 
 // ADMIN LOGIN
@@ -63,4 +64,7 @@ router.get(
   adminScheduleController.schedulesId_get
 )
 
+// orders
+router.get('/admin/orders', requireAdminAuth, adminOrderController.order_get)
+router.put('/admin/orders', adminOrderController.order_edit)
 module.exports = router
