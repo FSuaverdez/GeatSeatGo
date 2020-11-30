@@ -103,97 +103,23 @@
       <div class="container">
         <div class="row">
 
+          <% if (scheduledMovies) { %>
+          <% scheduledMovies.forEach(movie => { %>
           <div class="col-md-3">
             <div class="card text-center">
-              <img class="card-img-top" src="images/aiwposter.jpg" alt="Card image">
+              <img class="card-img-top" src="<%=movie.imgUrl%>" alt="Card image">
               <div class="card-body">
-                <h6 class="card-title">Avengers: Infinity War<h6>
-                    <h6 class="card-text">Cinema 1 <br /><br />7:00 am <br /> 11:00 am <br /> 3:00 pm <br /> 7:00 pm
-                    </h6>
-                    <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/jokerposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Joker</h4>
-                <h6 class="card-text">Cinema 2 <br /><br />9:00 am <br /> 11:00 am <br /> 1:00 pm <br /> 3:00 pm</h6>
+                <h4 class="card-title"><%=movie.title%></h4>
                 <a href="#" class="btn btn-primary">See More</a>
               </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/ts4poster.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Toy Story 4</h4>
-                <h6 class="card-text">Cinema 3 <br /><br />9:00 am <br /> 11:00 am <br /> 1:00 pm <br /> 3:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/wwposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h6 class="card-title">Wonder Woman</h6>
-                <h6 class="card-text">Cinema 4 <br /><br />10:00 am <br /> 1:00 pm <br /> 4:00 pm <br /> 7:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/lkposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">The Lion King</h4>
-                <h6 class="card-text">Cinema 5 <br /><br />8:00 am <br /> 11:00 am <br /> 2:00 pm <br /> 5:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/bopposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Birds of Prey</h4>
-                <h6 class="card-text">Cinema 6 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/f2poster.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Frozen 2</h4>
-                <h6 class="card-text">Cinema 7 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/ynposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Your Name.</h4>
-                <h6 class="card-text">Cinema 8 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="images/ynposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Your Name.</h4>
-                <h6 class="card-text">Cinema 8 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
+
+
+
+          <% }) %>
+          <% } %>
+
 
         </div>
       </div>

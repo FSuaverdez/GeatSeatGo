@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
 const adminRoutes = require('./routes/adminRoutes')
+const userRoutes = require('./routes/userRoutes')
 const dotenv = require('dotenv')
 const colors = require('colors')
 const cookieParser = require('cookie-parser')
@@ -41,7 +42,8 @@ mongoose
   .catch((err) => console.log(`Error: ${err.message}`.red.underline.bold))
 
 // routes
-app.get('/', (req, res) => res.render('home'))
+
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'))
 app.use(authRoutes)
 app.use(adminRoutes)
+app.use(userRoutes)
