@@ -11,6 +11,10 @@ const orderSchema = new mongoose.Schema(
       type: Array,
       required: [true, 'Seats is required'],
     },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+    },
   },
   { timestamps: true }
 )

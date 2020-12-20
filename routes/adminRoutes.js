@@ -66,5 +66,5 @@ router.get(
 
 // orders
 router.get('/admin/orders', requireAdminAuth, adminOrderController.order_get)
-router.put('/admin/orders', adminOrderController.order_edit)
+router.post('/admin/orders', adminOrderController.order_post)
 module.exports = router

@@ -32,9 +32,10 @@ module.exports.order_get = async (req, res) => {
   }
 }
 
-module.exports.order_edit = async (req, res) => {
+module.exports.order_post = async (req, res) => {
   let order = new Order({
     scheduleId: req.body.scheduleId,
+    email: req.body.email,
     seats: req.body.seats,
   })
   let schedule = await Schedule.findById(req.body.scheduleId)

@@ -17,9 +17,10 @@
     <a href="/admin" class="navbar-brand"><img src="/images/logos.png">
     </a>
     <% if (currentUser) { %>
-    <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %></h2>
-    <% } %>
-    <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
+      <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %>
+      </h2>
+      <% } %>
+        <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
   </div>
   <br>
   <!-- PILLS -->
@@ -73,6 +74,7 @@
               <!-- <th></th> -->
               <th>Order ID</th>
               <th>Schedule ID</th>
+              <th>Email</th>
               <th>Seats</th>
               <!-- <th>Image Link</th>
                 <th>Trailer Link</th> -->
@@ -80,11 +82,19 @@
           </thead>
           <tbody>
             <% if (orders) { %>
-            <% orders.forEach(order => { %>
-            <tr>
-              <td><%=order._id%></td>
-              <td><%=order.scheduleId%></td>
-              <td><%=order.seats.join(', ')%></td>
+              <% orders.forEach(order=> { %>
+                <tr>
+                  <td>
+                    <%=order._id%>
+                  </td>
+                  <td>
+                    <%=order.scheduleId%>
+                  </td>
+                  <td>
+                    <%=order.email%>
+                  </td>
+                  <td>
+                    <%=order.seats.join(', ')%></td>
 
             </tr>
             <% }) %>
@@ -195,12 +205,12 @@
           <div class="jumbotron jumbotron-fluid">
             <div class="container">
               <h1>In Progress</h1>
-              <p>You haven't unlock this part yet.</p>
-            </div>
-          </div>
-        </div>
+              <p>You haven' t unlock this part yet.</p>
       </div>
     </div>
+  </div>
+  </div>
+  </div>
   </div>
   <br>
   <!-- FOOTER -->

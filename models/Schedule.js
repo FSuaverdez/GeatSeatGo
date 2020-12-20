@@ -15,6 +15,10 @@ const scheduleSchema = new mongoose.Schema(
       type: Date,
       required: [true, 'Date and Time is Required'],
     },
+    price: {
+      type: Number,
+      required: [true, 'Price is Required'],
+    },
     seats: {
       type: Array,
       required: true,

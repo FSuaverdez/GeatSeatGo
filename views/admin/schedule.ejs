@@ -18,9 +18,10 @@
     <a href="/admin" class="navbar-brand"><img src="/images/logos.png">
     </a>
     <% if (currentUser) { %>
-    <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %></h2>
-    <% } %>
-    <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
+      <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %>
+      </h2>
+      <% } %>
+        <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
   </div>
   <br>
   <!-- PILLS -->
@@ -77,31 +78,42 @@
               <th>Schedule ID</th>
               <th>Date & Time</th>
               <th>Cinema #</th>
+              <th>Price</th>
               <!-- <th>Image Link</th>
                 <th>Trailer Link</th> -->
             </tr>
           </thead>
           <tbody>
             <% if (schedules) { %>
-            <% schedules.forEach(schedule =>{ %>
-            <tr>
-              <td><%=schedule._id%></td>
-              <td><%=schedule.dateTime.toLocaleString()%></td>
-              <td><%=schedule.cinema%></td>
-
-              <td>
-                <a href="#viewScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
-                  data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
-                  data-date="<%- schedule.dateTime %>" data-toggle="modal"><span>View</span></a>
-                <a href="#editScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
-                  data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
-                  data-date="<%- schedule.dateTime %>" data-toggle="modal"><span>Edit</span></a>
-                <a href="#deleteScheduleModal" class="btn btn-danger" data-id="<%- schedule._id %>"
-                  data-toggle="modal"><span>Delete</span></a>
-              </td>
-            </tr>
-            <% }) %>
-            <% } %>
+              <% schedules.forEach(schedule=>{ %>
+                <tr>
+                  <td>
+                    <%=schedule._id%>
+                  </td>
+                  <td>
+                    <%=schedule.dateTime.toLocaleString()%>
+                  </td>
+                  <td>
+                    <%=schedule.cinema%>
+                  </td>
+                  <td>
+                    <%= schedule.price %>
+                  </td>
+                  <td>
+                    <a href="#viewScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
+                      data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
+                      data-price="<%- schedule.price %> " data-date="<%- schedule.dateTime %>"
+                      data-toggle="modal"><span>View</span></a>
+                    <a href="#editScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
+                      data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
+                      data-price="<%- schedule.price %> " data-date="<%- schedule.dateTime %>"
+                      data-toggle="modal"><span>Edit</span></a>
+                    <a href="#deleteScheduleModal" class="btn btn-danger" data-id="<%- schedule._id %>"
+                      data-toggle="modal"><span>Delete</span></a>
+                  </td>
+                </tr>
+                <% }) %>
+                  <% } %>
           </tbody>
         </table>
       </div>
@@ -121,9 +133,11 @@
                 <input name="movie" id="movie" type="text" list="brow" class="form-control" required>
 
                 <datalist id="brow">
-                  <% movies.forEach(movie =>{ %>
-                  <option value="<%- movie._id %>"><%- movie.title %></option>
-                  <% }) %>
+                  <% movies.forEach(movie=>{ %>
+                    <option value="<%- movie._id %>">
+                      <%- movie.title %>
+                    </option>
+                    <% }) %>
                 </datalist>
 
                 <div class="movie error"></div>
@@ -139,6 +153,13 @@
                 </select>
                 <div class="cinema error"></div>
               </div>
+
+              <div class="form-group">
+                <label for="price">Price : </label>
+                <input type="number" id="price" name="price" required>
+                <div class="price error"></div>
+              </div>
+
               <div class="form-group">
                 <label for="date">Date : </label>
                 <input type="datetime-local" id="date" name="date" required>
@@ -171,9 +192,11 @@
                 <input name="movie" id="movie" type="text" list="brow" class="form-control" required>
 
                 <datalist id="brow">
-                  <% movies.forEach(movie =>{ %>
-                  <option value="<%- movie._id %>"><%- movie.title %></option>
-                  <% }) %>
+                  <% movies.forEach(movie=>{ %>
+                    <option value="<%- movie._id %>">
+                      <%- movie.title %>
+                    </option>
+                    <% }) %>
                 </datalist>
 
                 <div class="edit movie error"></div>
@@ -188,6 +211,12 @@
                   <option value="5">Cinema 5</option>
                 </select>
                 <div class="edit cinema error"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="price">Price : </label>
+                <input type="number" id="edit-price" name="price" required>
+                <div class="edit price error"></div>
               </div>
               <div class="form-group">
                 <label for="date">Date : </label>
@@ -227,7 +256,7 @@
         </div>
       </div>
     </div>
-    <!-- EDIT SCHEDULE MODAL    -->
+    <!-- View SCHEDULE MODAL    -->
     <div id="viewScheduleModal" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -242,9 +271,11 @@
                 <input disabled name="movie" id="movie" type="text" list="brow" class="form-control" required>
 
                 <datalist id="brow">
-                  <% movies.forEach(movie =>{ %>
-                  <option value="<%- movie._id %>"><%- movie.title %></option>
-                  <% }) %>
+                  <% movies.forEach(movie=>{ %>
+                    <option value="<%- movie._id %>">
+                      <%- movie.title %>
+                    </option>
+                    <% }) %>
                 </datalist>
 
                 <div class="edit movie error"></div>
@@ -261,10 +292,16 @@
                 <div class="edit cinema error"></div>
               </div>
               <div class="form-group">
+                <label for="price">Price : </label>
+                <input type="number" id="price" name="price" disabled>
+                <div class="price error"></div>
+              </div>
+              <div class="form-group">
                 <label for="date">Date : </label>
                 <input disabled type="datetime-local" id="date" name="date" required>
                 <div class="edit date error"></div>
               </div>
+
               <div class="form-group">
                 <ul class="showcase">
                   <li>
@@ -321,15 +358,19 @@
         modal.find('#movie').val('')
         modal.find('#cinema').val(1)
         modal.find('#date').val(date)
+        modal.find('#price').val(price)
+
 
         const form = document.querySelector('#add-form')
         const movieError = document.querySelector('.movie.error')
         const cinemaError = document.querySelector('.cinema.error')
         const dateError = document.querySelector('.date.error')
+        const priceError = document.querySelector('.price.error')
 
         movieError.textContent = ''
         dateError.textContent = ''
         cinemaError.textContent = ''
+        priceError.textContent = ''
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -338,13 +379,14 @@
           const movieId = form.movie.value
           const cinema = form.cinema.value
           const dateTime = form.date.value
+          const price = form.price.value
 
 
 
           try {
             const res = await fetch('/admin/schedules', {
               method: 'POST',
-              body: JSON.stringify({ movieId, cinema, dateTime }),
+              body: JSON.stringify({ movieId, cinema, dateTime, price }),
               headers: { 'Content-Type': 'application/json' }
             })
             const data = await res.json()
@@ -358,6 +400,7 @@
               movieError.textContent = data.errors.movieId
               dateError.textContent = data.errors.dateTime
               cinemaError.textContent = data.errors.cinema
+              priceError.textContent = data.errors.price
             }
 
 
@@ -374,6 +417,7 @@
         let movieId = button.data('movie') // Extract info from data-* attributes
         let cinema = button.data('cinema') // Extract info from data-* attributes
         let dateTime = button.data('date') // Extract info from data-* attributes
+        let price = button.data('price') // Extract info from data-* attributes
 
 
 
@@ -381,10 +425,12 @@
         modal.find('.modal-title').text('Edit Schedule')
         modal.find('#movie').val(movieId)
         modal.find('#cinema').val(cinema)
+        document.querySelector('#edit-price').value = parseInt(price)
         let date = new Date(dateTime)
         date = "" + date.toISOString()
         date = date.slice(0, 16)
         modal.find('#date').val(date)
+
 
 
         const form = document.querySelector('#edit-form')
@@ -404,7 +450,7 @@
           const movieId = form.movie.value
           const cinema = form.cinema.value
           const dateTime = form.date.value
-          console.log(movieId, cinema, dateTime)
+          const price = form.price.value
 
 
 
@@ -412,7 +458,7 @@
           try {
             const res = await fetch('/admin/schedules/' + id, {
               method: 'put',
-              body: JSON.stringify({ movieId, cinema, dateTime }),
+              body: JSON.stringify({ movieId, cinema, dateTime, price }),
               headers: { 'Content-Type': 'application/json' }
             })
             const data = await res.json()
@@ -441,6 +487,7 @@
         let movieId = button.data('movie') // Extract info from data-* attributes
         let cinema = button.data('cinema') // Extract info from data-* attributes
         let dateTime = button.data('date') // Extract info from data-* attributes
+        let price = button.data('price') // Extract info from data-* attributes
 
 
 
@@ -448,6 +495,7 @@
         modal.find('.modal-title').text('View Schedule ')
         modal.find('#movie').val(movieId)
         modal.find('#cinema').val(cinema)
+        modal.find('#price').val(parseInt(price))
         let date = new Date(dateTime)
         date = "" + date.toISOString()
         date = date.slice(0, 16)

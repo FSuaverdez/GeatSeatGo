@@ -15,6 +15,15 @@ module.exports.movies_get = async (req, res) => {
     }
   })
 
-  console.log(scheduledMovies)
   res.render('home', { scheduledMovies })
+}
+
+module.exports.movieSlug_get = async (req, res) => {
+  try {
+    const movie = await Movie.findOne({ slug: req.params.slug })
+    console.log(movie)
+    res.render('moviePage', { movie })
+  } catch (error) {
+    console.log(error)
+  }
 }

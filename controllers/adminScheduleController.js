@@ -45,6 +45,7 @@ module.exports.schedules_post = async (req, res) => {
     movieId: req.body.movieId,
     cinema: req.body.cinema,
     dateTime: req.body.dateTime,
+    price: req.body.price,
   })
   try {
     const movie = await Movie.findById(req.body.movieId)
@@ -70,6 +71,7 @@ module.exports.schedules_edit = async (req, res) => {
   schedule.movieId = req.body.movieId
   schedule.cinema = req.body.cinema
   schedule.dateTime = req.body.dateTime
+  schedule.price = req.body.price
   try {
     const movie = await Movie.findById(req.body.movieId)
     const editedSchedule = await schedule.save()
