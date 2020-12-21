@@ -16,7 +16,10 @@
     "validator": "^13.1.17"
   },
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "start": "node app.js"
+
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FSuaverdez/movie-ticket.git"
