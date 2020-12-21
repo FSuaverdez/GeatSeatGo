@@ -3,7 +3,6 @@ const Schedule = require('../models/Schedule')
 module.exports.schedule_get = async (req, res) => {
   try {
     const schedule = await Schedule.findOne({ _id: req.params.id })
-    console.log(schedule)
     res.render('buy', { schedule })
   } catch (error) {
     console.log(error)
