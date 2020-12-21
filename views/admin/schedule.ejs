@@ -18,10 +18,10 @@
     <a href="/admin" class="navbar-brand"><img src="/images/logos.png">
     </a>
     <% if (currentUser) { %>
-      <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %>
-      </h2>
-      <% } %>
-        <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
+    <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %>
+    </h2>
+    <% } %>
+    <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
   </div>
   <br>
   <!-- PILLS -->
@@ -85,35 +85,35 @@
           </thead>
           <tbody>
             <% if (schedules) { %>
-              <% schedules.forEach(schedule=>{ %>
-                <tr>
-                  <td>
-                    <%=schedule._id%>
-                  </td>
-                  <td>
-                    <%=schedule.dateTime.toLocaleString()%>
-                  </td>
-                  <td>
-                    <%=schedule.cinema%>
-                  </td>
-                  <td>
-                    <%= schedule.price %>
-                  </td>
-                  <td>
-                    <a href="#viewScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
-                      data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
-                      data-price="<%- schedule.price %> " data-date="<%- schedule.dateTime %>"
-                      data-toggle="modal"><span>View</span></a>
-                    <a href="#editScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
-                      data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
-                      data-price="<%- schedule.price %> " data-date="<%- schedule.dateTime %>"
-                      data-toggle="modal"><span>Edit</span></a>
-                    <a href="#deleteScheduleModal" class="btn btn-danger" data-id="<%- schedule._id %>"
-                      data-toggle="modal"><span>Delete</span></a>
-                  </td>
-                </tr>
-                <% }) %>
-                  <% } %>
+            <% schedules.forEach(schedule=>{ %>
+            <tr>
+              <td>
+                <%=schedule._id%>
+              </td>
+              <td>
+                <%=schedule.dateTime.toLocaleString()%>
+              </td>
+              <td>
+                <%=schedule.cinema%>
+              </td>
+              <td>
+                <%= schedule.price %>
+              </td>
+              <td>
+                <a href="#viewScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
+                  data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
+                  data-price="<%- schedule.price %> " data-date="<%- schedule.dateTime %>"
+                  data-toggle="modal"><span>View</span></a>
+                <a href="#editScheduleModal" class="btn btn-warning" data-id="<%- schedule._id %>"
+                  data-movie="<%- schedule.movieId %>" data-cinema="<%- schedule.cinema %>"
+                  data-price="<%- schedule.price %> " data-date="<%- schedule.dateTime %>"
+                  data-toggle="modal"><span>Edit</span></a>
+                <a href="#deleteScheduleModal" class="btn btn-danger" data-id="<%- schedule._id %>"
+                  data-toggle="modal"><span>Delete</span></a>
+              </td>
+            </tr>
+            <% }) %>
+            <% } %>
           </tbody>
         </table>
       </div>
@@ -134,10 +134,10 @@
 
                 <datalist id="brow">
                   <% movies.forEach(movie=>{ %>
-                    <option value="<%- movie._id %>">
-                      <%- movie.title %>
-                    </option>
-                    <% }) %>
+                  <option value="<%- movie._id %>">
+                    <%- movie.title %>
+                  </option>
+                  <% }) %>
                 </datalist>
 
                 <div class="movie error"></div>
@@ -193,10 +193,10 @@
 
                 <datalist id="brow">
                   <% movies.forEach(movie=>{ %>
-                    <option value="<%- movie._id %>">
-                      <%- movie.title %>
-                    </option>
-                    <% }) %>
+                  <option value="<%- movie._id %>">
+                    <%- movie.title %>
+                  </option>
+                  <% }) %>
                 </datalist>
 
                 <div class="edit movie error"></div>
@@ -272,10 +272,10 @@
 
                 <datalist id="brow">
                   <% movies.forEach(movie=>{ %>
-                    <option value="<%- movie._id %>">
-                      <%- movie.title %>
-                    </option>
-                    <% }) %>
+                  <option value="<%- movie._id %>">
+                    <%- movie.title %>
+                  </option>
+                  <% }) %>
                 </datalist>
 
                 <div class="edit movie error"></div>

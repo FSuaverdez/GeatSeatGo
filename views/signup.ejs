@@ -1,52 +1,92 @@
-<%- include('partials/header'); -%>
-<form>
-  <h2>Sign Up</h2>
-  <label for="email">Email</label>
-  <input type="text" name="email" required>
-  <div class="email error"></div>
-  <label for="password">Password</label>
-  <input type="password" name="password" required>
-  <div class="password error"></div>
-  <button>Sign Up</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
 
-<script>
-  const form = document.querySelector('form')
-  const emailError = document.querySelector('.email.error')
-  const passwordError = document.querySelector('.password.error')
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GETSEATGO | Admin Log In</title>
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/adminlogin.css">
+</head>
 
-    // reset error
-    emailError.textContent = ''
-    passwordError.textContent = ''
+<body>
+  <div class="d-flex justify-content-center align-items-center login-container">
+    <form class="login-form text-center">
+      <img src="/images/logos.png" class="mb-4" width="100%">
+      <div class="form-group">
+        <input type="email" class="form-control rounded-pill form-control-lg" name="email" placeholder="Email">
+        <div class="email error"></div>
+      </div>
 
-    //get the values
+      <div class="form-group">
+        <input type="password" class="form-control rounded-pill form-control-lg" name="password" placeholder="Password">
+        <div class="password error"></div>
+      </div>
+      <div class="form-group">
+        <input type="passowrd" class="form-control rounded-pill form-control-lg" name="confirmPassword"
+          placeholder="Confirm Password">
+        <div class="confirm password error"></div>
+      </div>
 
-    const email = form.email.value
-    const password = form.password.value
+      <button class="btn mt-4 rounded-pill btn-lg btn-custom btn-block text-uppercase">Sign Up</button>
+    </form>
+  </div>
 
-    try {
-      const res = await fetch('/signup', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      const data = await res.json()
+  <footer>
+    <div class="footer-container text-center">
+      <p>GETSEATGO &copy; All Rights Reserved 2020</p>
+    </div>
+  </footer>
 
-      if (data.errors) {
-        emailError.textContent = data.errors.email
-        passwordError.textContent = data.errors.password
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    const form = document.querySelector('form')
+    const emailError = document.querySelector('.email.error')
+    const passwordError = document.querySelector('.password.error')
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // reset error
+      emailError.textContent = ''
+      passwordError.textContent = ''
+
+      //get the values
+
+      const email = form.email.value
+      const password = form.password.value
+      const confirmPassword = form.confirmPassword.value
+
+      if (confirmPassword === password) {
+        try {
+          const res = await fetch('/signup', {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            headers: { 'Content-Type': 'application/json' }
+          })
+          const data = await res.json()
+
+          if (data.errors) {
+            emailError.textContent = data.errors.email
+            passwordError.textContent = data.errors.password
+          }
+          if (data.user) {
+            location.assign('/')
+          }
+
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        passwordError.textContent = 'Password does not match'
       }
-      if (data.user) {
-        location.assign('/')
-      }
+    })
+  </script>
+</body>
 
-      console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
-  })
-</script>
-<%- include('partials/footer'); -%>
+</html>

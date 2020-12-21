@@ -26,30 +26,33 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">HOME</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="html/movies.html">MOVIES</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="html/about.html">ABOUT</a>
-          </li>
-        </ul>
+
+        <% if (currentUser) { %>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="html/signup.html">SIGN UP</a>
+            <h5 class="navbar-text ml-auto mr-5"><%- currentUser.email %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="html/login.html">LOGIN</a>
+            <a href="/logout" class="btn btn-primary mr-6">Logout</a>
           </li>
         </ul>
+
+        <% }else{ %>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">SIGN UP</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">LOGIN</a>
+          </li>
+        </ul>
+        <% } %>
+
       </div>
     </div>
   </nav>
 
-  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="1500" data-pause="hover">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="hover">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="images/avengers.jpg" class="d-block w-100">
@@ -91,9 +94,7 @@
       <li class="nav-item">
         <a class="nav-link active" data-toggle="pill" href="#showing">NOW SHOWING</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#soon">COMING SOON</a>
-      </li>
+
     </ul>
     <br>
   </div>
@@ -126,55 +127,7 @@
     </div>
     <br>
 
-    <div id="soon" class="container tab-pane fade">
-      <div class="container">
-        <div class="row">
 
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="img/aiwposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h6 class="card-title">Avengers: Infinity War<h6>
-                    <h6 class="card-text">Cinema 1 <br /><br />7:00 am <br /> 11:00 am <br /> 3:00 pm <br /> 7:00 pm
-                    </h6>
-                    <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="img/jokerposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Joker</h4>
-                <h6 class="card-text">Cinema 2 <br /><br />9:00 am <br /> 11:00 am <br /> 1:00 pm <br /> 3:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="img/f2poster.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Frozen 2</h4>
-                <h6 class="card-text">Cinema 7 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="img/ynposter.jpg" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title">Your Name.</h4>
-                <h6 class="card-text">Cinema 8 <br /><br />10:00 am <br /> 12:00 pm <br /> 2:00 pm <br /> 4:00 pm</h6>
-                <a href="#" class="btn btn-primary">See More</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
   </div>
 
