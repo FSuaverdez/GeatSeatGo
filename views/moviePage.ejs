@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    <%- movie.title %>
-  </title>
+  <title>Document</title>
 </head>
 
 <body>
@@ -29,12 +27,15 @@
       <form id="schedule-form">
         <label for="schedule">Select Schedule</label>
         <select name="schedule" id="schedule">
-          <% schedules.forEach(sched=> { %>
-            <% let date=new Date(sched.dateTime) date="" + date.toISOString() date=date.slice(0, 16) %>
-              <option value="<%= sched._id %> ">Cinema <%- sched.cinema %> -
-                  <%- sched.dateTime.toLocaleString('en-PH', {timeStyle:'medium',dateStyle:'medium' }) %>
-              </option>
-              <% }) %>
+          <% schedules.forEach(sched=> { let date=new Date(sched.dateTime); date="" + date.toISOString();
+            date=date.slice(0, 16)%>
+
+
+
+            <option value="<%= sched._id %> ">Cinema <%- sched.cinema %> -
+                <%- sched.dateTime.toLocaleString('en-PH', {timeStyle:'medium',dateStyle:'medium' }) %>
+            </option>
+            <% }) %>
 
         </select>
         <button type="submit">Submit</button>
@@ -42,11 +43,9 @@
 
       <script>
         const form = document.querySelector('#schedule-form')
-
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           console.log(form.schedule.value)
-
           location.assign(`/buy/${form.schedule.value}`)
         })
       </script>
