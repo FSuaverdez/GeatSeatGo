@@ -37,13 +37,16 @@
     </div>
   </div>
 
-  <p>Price: <span id="price"><%= schedule.price %> </span></p>
+  <p>Price: <span id="price">
+      <%= schedule.price %>
+    </span></p>
   <p class="text">
-    You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
+    You have selected <span id="count">0</span> seats for a price of PHP <span id="total">0</span>
   </p>
 
-
-  <a href="#buyModal" id="buy" class="btn btn-warning" data-toggle="modal"><span>Buy</span></a>
+  <button type="button" id="buy" class="btn btn-primary" data-toggle="modal" data-target="#buyModal">
+    Buy
+  </button>
   <div id="buyModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -57,49 +60,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-  <script>
-    paypal.Button.render({
-      // Configure environment
-      env: 'sandbox',
-      client: {
-        sandbox: 'AS0OYjYmD_LErfQVR-HptUpYDyRppEksv0HIXoB0ffSf1sufasjp64RCJdVkCmVDThFo9klYQQ1Ub0cL',
-        production: 'demo_production_client_id'
-      },
-      // Customize button (optional)
-      locale: 'en_US',
-      style: {
-        size: 'small',
-        color: 'gold',
-        shape: 'pill',
-      },
 
-      // Enable Pay Now checkout flow (optional)
-      commit: true,
-
-      // Set up a payment
-      payment: function (data, actions) {
-        return actions.payment.create({
-          transactions: [{
-            amount: {
-              total: '200',
-              currency: 'PHP'
-            }
-          }]
-        });
-      },
-      // Execute the payment
-      onAuthorize: function (data, actions) {
-        return actions.payment.execute().then(function (data) {
-          // Show a confirmation message to the buyer
-          console.log(data)
-          window.alert('Thank you for your purchase!');
-        });
-      }
-    }, '#paypal-button');
-
-
-
-  </script>
   <script>
     const container = document.querySelector('.container')
     const seats = document.querySelectorAll('.row .seat:not(.occupied)')
@@ -107,7 +68,10 @@
     const total = document.getElementById('total')
     const form = document.getElementById('buy')
     const seatContainer = document.querySelector('.seat-container')
-
+    const id = window.location.pathname.replace('/buy/', '')
+    let totalAmount = 0;
+    let buyingSeats = []
+    form.disabled = true
 
     let ticketPrice = +document.getElementById('price').innerText
 
@@ -120,6 +84,13 @@
 
       count.innerText = selectedSeatsCount
       total.innerText = selectedSeatsCount * ticketPrice
+      totalAmount = selectedSeatsCount * ticketPrice
+
+      if (selectedSeatsCount > 0) {
+        form.disabled = false
+      } else {
+        form.disabled = true
+      }
     }
 
 
@@ -138,12 +109,13 @@
 
     form.addEventListener('click', () => {
       const selectedSeats = document.querySelectorAll('.row .seat.selected')
-
+      let seats = []
       selectedSeats.forEach((seat) => {
 
-
-        console.log(seat.id)
+        seats.push(seat.id)
       })
+      buyingSeats = seats
+      console.log(buyingSeats)
     })
 
     updateSelectedCount()
@@ -152,7 +124,7 @@
 
     async function getSchedule() {
       try {
-        const id = window.location.pathname.replace('/buy/', '')
+
         const res = await fetch('/schedule/' + id, {
           method: 'get'
         });
@@ -177,6 +149,64 @@
     }
 
     getSchedule()
+
+
+  </script>
+
+
+  <script>
+    paypal.Button.render({
+      // Configure environment
+      env: 'sandbox',
+      client: {
+        sandbox: 'AS0OYjYmD_LErfQVR-HptUpYDyRppEksv0HIXoB0ffSf1sufasjp64RCJdVkCmVDThFo9klYQQ1Ub0cL',
+        production: 'demo_production_client_id'
+      },
+      // Customize button (optional)
+      locale: 'en_US',
+      style: {
+        size: 'small',
+        color: 'gold',
+        shape: 'pill',
+      },
+
+      // Enable Pay Now checkout flow (optional)
+      commit: true,
+
+      // Set up a payment
+      payment: function (data, actions) {
+        return actions.payment.create({
+          transactions: [{
+            amount: {
+              total: totalAmount,
+              currency: 'PHP'
+            }
+          }]
+        });
+      },
+      // Execute the payment
+      onAuthorize: function (data, actions) {
+        return actions.payment.execute().then(async function (data) {
+          // Show a confirmation message to the buyer
+          if (data && data.state == "approved") {
+            const scheduleId = id
+            const seats = buyingSeats
+            const res = await fetch('/buy/' + id, {
+              method: 'POST',
+              body: JSON.stringify({ scheduleId, seats }),
+              headers: { 'Content-Type': 'application/json' }
+            })
+            const data = await res.json()
+            console.log(data)
+            if(data.order){
+              location.assign(`/buy/confirm/${data.order}`)
+            }
+
+          }
+        });
+      }
+    }, '#paypal-button');
+
 
 
   </script>
