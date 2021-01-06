@@ -21,7 +21,9 @@ const handleErrors = (err) => {
 module.exports.schedule_get = async (req, res) => {
   try {
     const schedule = await Schedule.findOne({ _id: req.params.id })
-    res.render('buy', { schedule })
+    const movie = await Movie.findById(schedule.movieId)
+    const user = res.locals.currentUser
+    res.render('buy', { schedule, movie, user })
   } catch (error) {
     console.log(error)
   }
@@ -82,7 +84,7 @@ module.exports.buyTicket_post = async (req, res) => {
 
       let mailOptions = {
         from: 'frannz.dev@gmail.com',
-        to: 'sfrannz@gmail.com',
+        to: req.body.email,
         subject: 'GetSeatGo Order',
         text: `Order #${newOrder._id}!\nSeats: ${req.body.seats.join(', ')}`,
       }

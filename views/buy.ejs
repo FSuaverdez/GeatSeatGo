@@ -13,7 +13,9 @@
 
 <body>
 
-
+  <h1>
+    <%= movie.title %>
+  </h1>
   <ul class="showcase">
     <li>
       <div class="seat"></div>
@@ -49,7 +51,35 @@
   </button>
   <div id="buyModal" class="modal fade">
     <div class="modal-dialog">
-      <div class="modal-content">
+
+      <div class="modal-content p-5">
+
+
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Movie</th>
+              <th scope="col">Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id='email'>
+                <%= user.email %>
+              </td>
+              <td>
+                <%= movie.title %>
+              </td>
+              <td id='qty'>@mdo</td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <h5>Total Price: <span id="total-price"></span></h5>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div id="paypal-button"></div>
 
       </div>
@@ -66,9 +96,13 @@
     const seats = document.querySelectorAll('.row .seat:not(.occupied)')
     const count = document.getElementById('count')
     const total = document.getElementById('total')
+    const totalPrice = document.getElementById('total-price')
     const form = document.getElementById('buy')
+    const qty = document.getElementById('qty')
     const seatContainer = document.querySelector('.seat-container')
     const id = window.location.pathname.replace('/buy/', '')
+    const email = document.getElementById('email').innerText.trim()
+    console.log(email)
     let totalAmount = 0;
     let buyingSeats = []
     form.disabled = true
@@ -83,7 +117,10 @@
       const selectedSeatsCount = selectedSeats.length
 
       count.innerText = selectedSeatsCount
+      qty.innerText = selectedSeatsCount
       total.innerText = selectedSeatsCount * ticketPrice
+      totalPrice.innerText = selectedSeatsCount * ticketPrice
+
       totalAmount = selectedSeatsCount * ticketPrice
 
       if (selectedSeatsCount > 0) {
@@ -193,12 +230,12 @@
             const seats = buyingSeats
             const res = await fetch('/buy/' + id, {
               method: 'POST',
-              body: JSON.stringify({ scheduleId, seats }),
+              body: JSON.stringify({ scheduleId, seats, email }),
               headers: { 'Content-Type': 'application/json' }
             })
             const data = await res.json()
             console.log(data)
-            if(data.order){
+            if (data.order) {
               location.assign(`/buy/confirm/${data.order}`)
             }
 
