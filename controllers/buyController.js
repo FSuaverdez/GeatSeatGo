@@ -74,16 +74,16 @@ module.exports.buyTicket_post = async (req, res) => {
     const newOrder = await order.save()
 
     if (newOrder) {
-      let transporter = nodemailer.createTransport({
+      const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'frannz.dev@gmail.com',
-          pass: 'fsuaverdez12345',
+          user: 'getseatgo@gmail.com',
+          pass: 'mssbjhyjkastureg',
         },
       })
 
-      let mailOptions = {
-        from: 'frannz.dev@gmail.com',
+      var mailOptions = {
+        from: 'getseatgo@gmail.com',
         to: req.body.email,
         subject: 'GetSeatGo Order',
         text: `Order #${newOrder._id}!\nSeats: ${req.body.seats.join(', ')}`,
@@ -96,8 +96,8 @@ module.exports.buyTicket_post = async (req, res) => {
           console.log('Email sent: ' + info.response)
         }
       })
+      res.status(201).json({ order: order._id, schedule })
     }
-    res.status(201).json({ order: order._id, schedule })
   } catch (err) {
     const errors = handleErrors(err)
     res.status(400).json({ errors })
