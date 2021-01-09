@@ -42,7 +42,8 @@
     const form = document.querySelector('form')
     const emailError = document.querySelector('.email.error')
     const passwordError = document.querySelector('.password.error')
-
+    const params = new URLSearchParams(window.location.search)
+    const redirect = params.get('fromUrl')
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -70,7 +71,11 @@
 
         }
         if (data.user) {
-          location.assign('/')
+          if (redirect) {
+            location.assign(redirect)
+          } else {
+            location.assign('/')
+          }
         }
 
         console.log(data)

@@ -4,53 +4,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Cinemillen</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="MoviePage.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="MoviePage.js"></script>
 </head>
 
 <body>
-  <% if (currentUser) { %>
-    <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %>
-    </h2>
-    <a href="/logout" class="btn btn-primary mr-6">Logout</a>
-    <% } %>
-      <h1>
-        <%- movie.title %>
-      </h1>
-      <img src="<%=movie.imgUrl%>" alt="<%=movie.title%>">
-      <p>
-        <%- movie.description %>
-      </p>
+  <nav class="navbar navbar-expand-md navbar-light mb-2" style="background-color: #fbfcfd">
+    <div class="container-fluid">
+      <a href="index.html" class="navbar-brand mr-5"><img src="images/logos.png" width="" height=""
+          class="d-inline-block align-top" alt="" loading="lazy">
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%- movie.trailerUrl %>" frameborder="0"
+        <% if (currentUser) { %>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <h5 class="navbar-text ml-auto mr-5">
+                <%- currentUser.email %>
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="btn btn-primary mr-6">Logout</a>
+            </li>
+          </ul>
+
+          <% }else{ %>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">SIGN UP</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">LOGIN</a>
+              </li>
+            </ul>
+            <% } %>
+
+      </div>
+    </div>
+  </nav>
+  <marquee behavior="scroll" bgcolor="black" scrollamount="12" width="100%" direction="left" height="50px">
+    <h1> --- <%=movie.title%> ---------- <%=movie.title%> ---------- <%=movie.title%> ---</h1>
+  </marquee>
+  <!-- VIDEO -->
+  <div class="container-fluid">
+    <div class="video">
+      <iframe class="video" src="https://www.youtube.com/embed/<%- movie.trailerUrl %>?autoplay=1" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
+        allowfullscreen=""></iframe>
+    </div>
+    <marquee behavior="scroll" bgcolor="black" scrollamount="12" width="100%" direction="left" height="50px">
+      <h1> --- BUY YOUR TICKETS NOW ---------- BUY YOUR TICKETS NOW ---------- BUY YOUR TICKETS NOW---</h1>
+    </marquee>
+    <!-- CARD -->
+    <div class="card" style="width: 400px">
+      <!-- POSTER -->
+      <img class="card-img-top" src="<%=movie.imgUrl%>" alt="<%=movie.title%>" style="width:100%">
+      <div class="card-body">
+        <!-- TEXT -->
+        <h4 class="card-title">
+          <%=movie.title%>
+        </h4>
+        <p class="card-text">
+          <%=movie.description%>
+        </p>
+        <br>
+        <!-- SCHEDULE -->
+        <form id="schedule-form">
+          <label for="schedule">Select Schedule</label>
+          <select name="schedule" id="schedule">
+            <% schedules.forEach(sched=> { let date=new Date(sched.dateTime); date="" + date.toISOString();
+              date=date.slice(0, 16)%>
 
-      <form id="schedule-form">
-        <label for="schedule">Select Schedule</label>
-        <select name="schedule" id="schedule">
-          <% schedules.forEach(sched=> { let date=new Date(sched.dateTime); date="" + date.toISOString();
-            date=date.slice(0, 16)%>
 
 
+              <option value="<%= sched._id %> ">Cinema <%- sched.cinema %> -
+                  <%- sched.dateTime.toLocaleString('en-PH', {timeStyle:'medium',dateStyle:'medium' }) %>
+              </option>
+              <% }) %>
 
-            <option value="<%= sched._id %> ">Cinema <%- sched.cinema %> -
-                <%- sched.dateTime.toLocaleString('en-PH', {timeStyle:'medium',dateStyle:'medium' }) %>
-            </option>
-            <% }) %>
+          </select>
+          <br>
+          <br>
+          <button class="btn btn-primary" type="submit">Submit</button>
 
-        </select>
-        <button type="submit">Submit</button>
-      </form>
+          <!-- SCRIPT -->
+          <script>
+            const form = document.querySelector('#schedule-form')
+            form.addEventListener('submit', (e) => {
+              e.preventDefault();
+              console.log(form.schedule.value)
+              location.assign(`/buy/${form.schedule.value}`)
+            })
+          </script>
 
-      <script>
-        const form = document.querySelector('#schedule-form')
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          console.log(form.schedule.value)
-          location.assign(`/buy/${form.schedule.value}`)
-        })
-      </script>
+      </div>
+    </div>
+    <marquee behavior="scroll" bgcolor="black" scrollamount="12" width="100%" direction="left" height="50px">
+      <h1>--- <%=movie.title%> ---------- <%=movie.title%> ---------- <%=movie.title%> ---</h1>
+    </marquee>
+  </div>
+
+  <!-- FOOTER-->
+  <div class="footer-container text-center">
+    <a href="#" class="fa fa-facebook-square" style="font-size:36px; color:gray"></a>
+    <a href="#" class="fa fa-instagram" style="font-size:36px; color:gray"></a>
+    <a href="#" class="fa fa-twitter-square" style="font-size:36px; color:gray"></a>
+    <br>
+    <div class="footer-link">
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookies Policy</a>
+      <a href="#">FAQs</a>
+      <a href="#">Customer Service</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <p>Getseatgo &copy; All Rights Reserved 2020</p>
+  </div>
+
 </body>
-
 
 </html>

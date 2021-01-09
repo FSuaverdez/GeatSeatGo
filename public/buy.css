@@ -6,7 +6,6 @@
 
 body {
   background-color: #242333;
-  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +13,7 @@ body {
   height: 100vh;
   font-family: 'Lato', sans-serif;
   margin: 0;
+  color: #eab354;
 }
 
 .movie-container {
@@ -55,7 +55,7 @@ body {
 }
 
 .seat.selected {
-  background-color: #6feaf6;
+  background-color: #eab354;
 }
 
 .seat.occupied {
@@ -123,4 +123,20 @@ p.text span {
 }
 #buyModal {
   color: #444;
+}
+
+.btn-primary {
+  background-color: #eab354;
+  border-color: #eab354;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  background-color: #eab354;
+  border-color: #eab354;
+}
+
+#sold-out {
+  padding: 1rem;
+  font-weight: bold;
 }

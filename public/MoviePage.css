@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  background-color: #deefed;
+  color: #93a7a6;
+  background-image: url('./images/curtain.jpg');
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+.navbar-expand-md > .container,
+.navbar-expand-md > .container-fluid,
+.navbar-expand-md > .container-lg,
+.navbar-expand-md > .container-md,
+.navbar-expand-md > .container-sm,
+.navbar-expand-md > .container-xl {
+  margin-bottom: 0px;
+}
+
+.container-fluid {
+  margin-bottom: 10px;
+}
+
+.video {
+  position: relative;
+  height: 600px;
+  width: 100%;
+  float: none;
+  margin-bottom: 20px;
+}
+
+.h1,
+h1 {
+  color: #eab354;
+}
+.card {
+  margin: 0 auto;
+  float: none;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-primary {
+  background-color: #eab354;
+  border-color: #eab354;
+}
+
+.footer-container {
+  background-color: #fbfcfd;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.footer-link a {
+  font-size: x-small;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: gray;
+}
+
+p {
+  font-size: smaller;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
