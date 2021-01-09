@@ -17,7 +17,7 @@ const createTicket = (newOrder, schedule, movie, date) => `
 <div class="card" style="width: 250px">
     <img class="card-img-top"
       src="${movie.imgUrl}"
-      alt="SPIDER-MAN: INTO THE SPIDER-VERSE" style="width:100%">
+      alt="${movie.imgUrl}" style="width:100%">
     <div class="card-body">
       <h4 class="card-title">
         ${movie.title}
