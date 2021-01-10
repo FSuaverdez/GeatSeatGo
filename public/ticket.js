@@ -1,3 +1,5 @@
+const { schedule_get } = require('../controllers/buyController');
+
 const createTicket = (newOrder, schedule, movie, date) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +29,10 @@ const createTicket = (newOrder, schedule, movie, date) => `
         </span>
       </p>
       <p class="card-text">Date & Time: <span class="black">
-          ${date}
+          ${schedule.dateTime.toLocaleString('en-PH', {
+            timeStyle: 'medium',
+            dateStyle: 'medium',
+          })}
         </span>
       </p>
       <p class="card-text">Seat(s): <span class="black">
