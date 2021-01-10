@@ -1,5 +1,3 @@
-const { schedule_get } = require('../controllers/buyController');
-
 const createTicket = (newOrder, schedule, movie, date) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -96,6 +94,6 @@ h5 {
 }
 </style>
 </body>
-</html>`;
+</html>`
 
-module.exports = createTicket;
+module.exports = createTicket

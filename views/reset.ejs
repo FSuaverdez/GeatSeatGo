@@ -16,18 +16,14 @@
     <form class="login-form text-center">
       <img src="/images/logos.png" class="mb-4" width="100%">
       <div class="form-group">
-        <input type="email" class="form-control rounded-pill form-control-lg" name="email" placeholder="Username">
+        <input type="email" class="form-control rounded-pill form-control-lg" name="email" placeholder="Email">
         <div class="email error"></div>
       </div>
+      <div id="success"></div>
 
-      <div class="form-group">
-        <input type="password" class="form-control rounded-pill form-control-lg" name="password" placeholder="Password">
-        <div class="password error"></div>
-      </div>
 
-      <button class="btn mt-4 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
-      <p class="m-2">No account? <a href="/signup">Create Account</a></p>
-      <p class="m-2"><a href="/reset">Forgot Password?</a></p>
+
+      <button class="btn mt-4 rounded-pill btn-lg btn-custom btn-block text-uppercase">Submit</button>
     </form>
   </div>
 
@@ -43,41 +39,31 @@
   <script>
     const form = document.querySelector('form')
     const emailError = document.querySelector('.email.error')
-    const passwordError = document.querySelector('.password.error')
     const params = new URLSearchParams(window.location.search)
-    const redirect = params.get('fromUrl')
+    const success = document.getElementById('success')
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // reset error
       emailError.textContent = ''
-      passwordError.textContent = ''
 
       //get the values
 
       const email = form.email.value
-      const password = form.password.value
 
       try {
-        const res = await fetch('/login', {
+        const res = await fetch('/reset', {
           method: 'POST',
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email }),
           headers: { 'Content-Type': 'application/json' }
         })
         const data = await res.json()
 
         if (data.errors) {
           emailError.textContent = data.errors.email
-          passwordError.textContent = data.errors.password
-
-
         }
-        if (data.user) {
-          if (redirect) {
-            location.assign(redirect)
-          } else {
-            location.assign('/')
-          }
+        if (data.sent) {
+          success.textContent = 'Email Sent'
         }
 
         console.log(data)

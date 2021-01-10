@@ -7,5 +7,9 @@ router.post('/signup', authController.signup_post)
 router.get('/login', authController.login_get)
 router.post('/login', authController.login_post)
 router.get('/logout', authController.logout_get)
+router.get('/reset', authController.reset_get)
+router.post('/reset', authController.reset_post)
+router.get('/reset/:id', authController.resetPage_get)
+router.post('/reset/:id', authController.resetPage_post)
 
 module.exports = router
