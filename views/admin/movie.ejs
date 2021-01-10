@@ -17,19 +17,20 @@
     <a href="/admin" class="navbar-brand"><img src="/images/logos.png">
     </a>
     <% if (currentUser) { %>
-    <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %></h2>
-    <% } %>
-    <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
+      <h2 class="navbar-text ml-auto mr-5">Welcome <%- currentUser.email %>
+      </h2>
+      <% } %>
+        <a href="/admin/logout" class="btn btn-primary mr-6">Logout</a>
   </div>
   <br>
   <!-- PILLS -->
   <div class="container">
     <ul class="nav nav-pills nav-justified">
       <li class="nav-item">
-        <a class="nav-link active" href="/admin/movies">MOVIES</a>
+        <a class="nav-link active" href="/admin/movies">Movies</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/admin/users">USERS</a>
+        <a class="nav-link" href="/admin/users">Users</a>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="/admin/schedules">Schedules</a>
@@ -80,27 +81,31 @@
           </thead>
           <tbody>
             <% if (movies) { %>
-            <% movies.forEach(movie => { %>
-            <tr>
-              <td><%=movie.title.slice(0,40)%></td>
-              <td><%=movie.description.slice(0,40) +"..."%></td>
-              <!-- <td><a href="<%=movie.imgUrl%>"><%=movie.imgUrl.slice(0,10) +"...." %></a></td>
+              <% movies.forEach(movie=> { %>
+                <tr>
+                  <td>
+                    <%=movie.title.slice(0,40)%>
+                  </td>
+                  <td>
+                    <%=movie.description.slice(0,40) +"..."%>
+                  </td>
+                  <!-- <td><a href="<%=movie.imgUrl%>"><%=movie.imgUrl.slice(0,10) +"...." %></a></td>
                     <td>
                       <a href="<%= movie.trailerUrl%>">
                         <%- movie.trailerUrl.slice(0,3) +"...." %>
                       </a>
                     </td> -->
-              <td>
-                <a href="#editMovieModal" data-id="<%- movie._id %>" data-title="<%- movie.title %>"
-                  data-description="<%- movie.description %>" data-img-url="<%- movie.imgUrl %>"
-                  data-trailer-url="<%- movie.trailerUrl %>" class="btn btn-warning"
-                  data-toggle="modal"><span>Edit</span></a>
-                <a href="#deleteMovieModal" data-id="<%- movie._id %>" class="btn btn-danger"
-                  data-toggle="modal"><span>Delete</span></a>
-              </td>
-            </tr>
-            <% }) %>
-            <% } %>
+                  <td>
+                    <a href="#editMovieModal" data-id="<%- movie._id %>" data-title="<%- movie.title %>"
+                      data-description="<%- movie.description %>" data-img-url="<%- movie.imgUrl %>"
+                      data-trailer-url="<%- movie.trailerUrl %>" class="btn btn-warning"
+                      data-toggle="modal"><span>Edit</span></a>
+                    <a href="#deleteMovieModal" data-id="<%- movie._id %>" class="btn btn-danger"
+                      data-toggle="modal"><span>Delete</span></a>
+                  </td>
+                </tr>
+                <% }) %>
+                  <% } %>
           </tbody>
         </table>
       </div>

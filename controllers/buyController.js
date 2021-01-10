@@ -44,7 +44,7 @@ module.exports.schedulesId_get = async (req, res) => {
 module.exports.buyTicket_post = async (req, res) => {
   let order = new Order({
     scheduleId: req.body.scheduleId,
-    email: res.locals.currentUser,
+    email: req.body.email,
     seats: req.body.seats,
   });
   let schedule = await Schedule.findById(req.body.scheduleId);
