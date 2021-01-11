@@ -28,25 +28,26 @@
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
         <% if (currentUser) { %>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <h5 class="navbar-text ml-auto mr-5"><%- currentUser.email %>
-          </li>
-          <li class="nav-item">
-            <a href="/logout" class="btn btn-primary mr-6">Logout</a>
-          </li>
-        </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <h5 class="navbar-text ml-auto mr-5">
+                <%- currentUser.email %>
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="btn btn-primary mr-6">Logout</a>
+            </li>
+          </ul>
 
-        <% }else{ %>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/signup">SIGN UP</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">LOGIN</a>
-          </li>
-        </ul>
-        <% } %>
+          <% }else{ %>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">SIGN UP</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">LOGIN</a>
+              </li>
+            </ul>
+            <% } %>
 
       </div>
     </div>
@@ -55,28 +56,28 @@
   <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="hover">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="images/avengers.jpg" class="d-block w-100">
+        <img src="images/avengers.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/jokes.jpg" class="d-block w-100">
+        <img src="images/jokes.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/toy.jpg" class="d-block w-100">
+        <img src="images/toy.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/captmarvel.jpg" class="d-block w-100">
+        <img src="images/captmarvel.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/harley.jpg" class="d-block w-100">
+        <img src="images/harley.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/lion.jpg" class="d-block w-100">
+        <img src="images/lion.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/frozen2.jpg" class="d-block w-100">
+        <img src="images/frozen2.jpg" class="d-block w-100 h-100">
       </div>
       <div class="carousel-item">
-        <img src="images/yourname.jpg" class="d-block w-100">
+        <img src="images/yourname.jpg" class="d-block w-100 h-100">
       </div>
       <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -105,21 +106,23 @@
         <div class="row">
 
           <% if (scheduledMovies) { %>
-          <% scheduledMovies.forEach(movie => { %>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <img class="card-img-top" src="<%=movie.imgUrl%>" alt="Card image">
-              <div class="card-body">
-                <h4 class="card-title"><%=movie.title%></h4>
-                <a href="<%=movie.slug%>" class="btn btn-primary">See More</a>
+            <% scheduledMovies.forEach(movie=> { %>
+              <div class="col-md-3">
+                <div class="card text-center">
+                  <img class="card-img-top" src="<%=movie.imgUrl%>" alt="Card image">
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <%=movie.title%>
+                    </h4>
+                    <a href="<%=movie.slug%>" class="btn btn-primary">See More</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
 
 
-          <% }) %>
-          <% } %>
+              <% }) %>
+                <% } %>
 
 
         </div>
