@@ -17,14 +17,14 @@
 
 <body background="/images/curtain.jpg">
   <!-- TICKET -->
-  <img src="/images/logos.png" class="center">
+  <a href="/"><img src="/images/logos.png" class="center mb-4 logo"></a>
   <h4> Thank you for booking via GETSEATGO.</h4>
   <h5>Skip the lines and go straight to the cinema door to present your e-ticket!
     No need to print or queue at the ticket counter.</h5>
   <div class="card" style="width: 250px">
     <img class="card-img-top" src="<%= movie.imgUrl %>" alt="<%= movie.title %>" style="width:100%">
     <div class="card-body">
-      <h4 class="card-title">
+      <h4 class="card-title black">
         <%= movie.title %>
       </h4>
       <p class="card-text" margin="0">Cinema: <span class="black">
@@ -38,12 +38,12 @@
       <p class="card-text">Seat(s): <span class="black">
           <%= order.seats.join(', ') %> </span></p>
       <p class="card-text">Seat Quantity: <span class="black"><%= order.seats.length %></span></p>
-      <p class="card-text">Ticket Price: <span class="black"><%=  schedule.price %></span> </p>
-      <p class="card-text">Total: <span class="black"><%= order.seats.length * schedule.price %></span></p>
+      <p class="card-text">Ticket Price: <span class="black">PHP <%=  schedule.price %></span> </p>
+      <p class="card-text">Total: <span class="black">PHP <%= order.seats.length * schedule.price %></span></p>
     </div>
   </div>
   <br>
-  <h5>THIS WILL SERVE AS YOUR OFICIAL TICKET</h5>
+  <h5>THIS WILL SERVE AS YOUR OFFICIAL TICKET</h5>
   <h5>TAKE A SCREENSHOT OR CHECK YOUR EMAIL</h5>
   <br>
 
