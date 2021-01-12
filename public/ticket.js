@@ -38,10 +38,10 @@ const createTicket = (newOrder, schedule, movie, date) => `
       <p class="card-text">Seat Quantity: <span class="black">${
         newOrder.seats.length
       }</span></p>
-      <p class="card-text">Ticket Price: <span class="black">${
+      <p class="card-text">Ticket Price: <span class="black">PHP ${
         schedule.price
       }</span> </p>
-      <p class="card-text">Total: <span class="black">${
+      <p class="card-text">Total: <span class="black">PHP ${
         newOrder.seats.length * schedule.price
       }</span></p>
     </div>

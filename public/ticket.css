@@ -42,3 +42,9 @@ h5 {
 .black {
   color: #444;
 }
+
+.logo {
+  background: #fff;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
