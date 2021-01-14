@@ -24,6 +24,11 @@ const handleErrors = (err) => {
 
 module.exports.schedules_get = async (req, res) => {
   let schedules = await Schedule.find().sort({ createdAt: 'desc' })
+  if (res.locals.currentUser.role !== 'ADMIN') {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/admin/login')
+    return
+  }
   if (req.query.id != null && req.query.id != '') {
     schedules = schedules.filter((schedule) => {
       const id = '' + schedule._id

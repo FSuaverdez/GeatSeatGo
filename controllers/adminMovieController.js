@@ -19,6 +19,11 @@ const handleErrors = (err) => {
 module.exports.movies_get = async (req, res) => {
   let movieQuery = Movie.find().sort({ createdAt: 'desc' })
   let userQuery = User.find().sort({ createdAt: 'desc' })
+  if (res.locals.currentUser.role !== 'ADMIN') {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/admin/login')
+    return
+  }
   if (req.query.title != null && req.query.title != '') {
     movieQuery = movieQuery.regex('title', new RegExp(req.query.title, 'i'))
   }

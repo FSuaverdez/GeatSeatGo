@@ -23,6 +23,11 @@ const handleErrors = (err) => {
 
 module.exports.users_get = async (req, res) => {
   let userQuery = User.find().sort({ createdAt: 'desc' })
+  if (res.locals.currentUser.role !== 'ADMIN') {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/admin/login')
+    return
+  }
 
   if (req.query.email != null && req.query.email != '') {
     userQuery = userQuery.regex('email', new RegExp(req.query.email, 'i'))

@@ -19,6 +19,11 @@ const handleErrors = (err) => {
 
 module.exports.order_get = async (req, res) => {
   let orders = await Order.find().sort({ createdAt: 'desc' })
+  if (res.locals.currentUser.role !== 'ADMIN') {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/admin/login')
+    return
+  }
   if (req.query.id != null && req.query.id != '') {
     orders = orders.filter((order) => {
       const id = '' + order._id
