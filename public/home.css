@@ -7,6 +7,8 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: #deefed;
   color: #93a7a6;
+   background-image: url('./images/curtain.jpg');
+  background-size: cover;
   overflow-x: hidden;
 }
 
