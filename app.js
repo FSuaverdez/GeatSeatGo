@@ -43,7 +43,6 @@ mongoose
 
 // routes
 
-app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'))
 app.use(authRoutes)
 app.use(adminRoutes)
 app.use(userRoutes)

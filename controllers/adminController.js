@@ -10,7 +10,7 @@ const handleErrors = (err) => {
   if (err.message === 'Unauthorized Email') {
     errors.email = 'Unauthorized Email'
   }
-  
+
   if (err.message === 'Account is disabled') {
     errors.email = 'Account is disabled'
   }
@@ -44,18 +44,20 @@ const handleErrors = (err) => {
 
 const MAX_AGE = 3 * 24 * 60 * 60
 
+// CREATE COOKIE TOKEN
 const createToken = (id) => {
   return jwt.sign({ id }, 'GETSEATGO2020', {
     expiresIn: MAX_AGE,
   })
 }
-
+// RENDER LOGIN PAGE
 module.exports.admin_login_get = (req, res) => {
   if (res.locals.user) {
     return res.redirect('/')
   }
   res.render('admin/adminLogin')
 }
+// POST REQUEST FOR LOGIN
 module.exports.admin_login_post = async (req, res) => {
   const { email, password } = req.body
 
@@ -70,10 +72,13 @@ module.exports.admin_login_post = async (req, res) => {
   }
 }
 
+// LOGOUT
 module.exports.admin_logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 })
   res.redirect('/admin/login')
 }
+
+// Redirect to Admin movies
 module.exports.admin_get = (req, res) => {
   res.redirect('/admin/movies')
 }

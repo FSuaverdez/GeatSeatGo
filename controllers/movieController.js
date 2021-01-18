@@ -1,6 +1,7 @@
 const Movie = require('../models/Movie')
 const Schedule = require('../models/Schedule')
 
+// Get movie list
 module.exports.movies_get = async (req, res) => {
   const movies = await Movie.find().sort({ createdAt: 'desc' })
   const schedules = await Schedule.find().sort({ createdAt: 'desc' })
@@ -18,6 +19,7 @@ module.exports.movies_get = async (req, res) => {
   res.render('home', { scheduledMovies })
 }
 
+// Get movie detail and render movie page
 module.exports.movieSlug_get = async (req, res) => {
   try {
     const movie = await Movie.findOne({ slug: req.params.slug })

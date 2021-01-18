@@ -21,6 +21,7 @@ const handleErrors = (err) => {
   return errors
 }
 
+// Users
 module.exports.users_get = async (req, res) => {
   let userQuery = User.find().sort({ createdAt: 'desc' })
   if (res.locals.currentUser.role !== 'ADMIN') {
@@ -41,6 +42,7 @@ module.exports.users_get = async (req, res) => {
   }
 }
 
+// Create User
 module.exports.users_post = async (req, res) => {
   let id = new mongoose.Types.ObjectId().toHexString()
   const salt = await bcrypt.genSalt()
@@ -64,6 +66,7 @@ module.exports.users_post = async (req, res) => {
   }
 }
 
+// Edit User
 module.exports.users_edit = async (req, res) => {
   let user = await User.findById(req.params.id)
   user.email = req.body.email

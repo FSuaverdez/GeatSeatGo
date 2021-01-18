@@ -17,6 +17,7 @@ const handleErrors = (err) => {
   return errors
 }
 
+// Orders
 module.exports.order_get = async (req, res) => {
   let orders = await Order.find().sort({ createdAt: 'desc' })
   if (res.locals.currentUser.role !== 'ADMIN') {
@@ -37,6 +38,7 @@ module.exports.order_get = async (req, res) => {
   }
 }
 
+// Create Orders
 module.exports.order_post = async (req, res) => {
   let order = new Order({
     scheduleId: req.body.scheduleId,

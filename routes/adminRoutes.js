@@ -14,6 +14,8 @@ router.post('/admin/login', adminController.admin_login_post)
 
 // ADMIN LOGOUT
 router.get('/admin/logout', adminController.admin_logout_get)
+
+
 router.get('/admin', adminController.admin_get)
 
 // ADMIN MOVIES

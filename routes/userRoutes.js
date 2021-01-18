@@ -6,8 +6,11 @@ const { requireAuth, checkUser } = require('../middlewares/authMiddleware')
 
 const router = Router()
 
+// MOVIES
 router.get('/', movies_get)
 router.get('/:slug', movieSlug_get)
+
+// BUY
 router.get('/buy/:id', requireAuth, buyController.schedule_get)
 router.post('/buy/:id', requireAuth, checkUser, buyController.buyTicket_post)
 router.get('/schedule/:id', buyController.schedulesId_get)

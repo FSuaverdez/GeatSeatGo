@@ -41,13 +41,14 @@ const handleErrors = (err) => {
 }
 
 const MAX_AGE = 3 * 24 * 60 * 60
-
+// Create Token Cookie
 const createToken = (id) => {
   return jwt.sign({ id }, 'GETSEATGO2020', {
     expiresIn: MAX_AGE,
   })
 }
 
+// Signup
 module.exports.signup_get = (req, res) => {
   if (res.locals.user) {
     return res.redirect('/')
@@ -56,6 +57,7 @@ module.exports.signup_get = (req, res) => {
   res.render('signup')
 }
 
+// Login
 module.exports.login_get = (req, res) => {
   if (res.locals.user) {
     return res.redirect('/')
@@ -64,6 +66,7 @@ module.exports.login_get = (req, res) => {
   res.render('login')
 }
 
+// Signup Post Request
 module.exports.signup_post = async (req, res) => {
   let { email, password } = req.body
   const salt = await bcrypt.genSalt()
@@ -89,10 +92,9 @@ module.exports.signup_post = async (req, res) => {
     const errors = handleErrors(error)
     return res.status(400).json({ errors })
   }
-
-  res.send('New Signup')
 }
 
+// Login Post
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body
   try {
@@ -107,14 +109,18 @@ module.exports.login_post = async (req, res) => {
   }
 }
 
+// Logout
 module.exports.logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 })
   res.redirect('/')
 }
 
+// Reset page
 module.exports.reset_get = (req, res) => {
   res.render('reset')
 }
+
+// reset post request
 module.exports.reset_post = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email })
@@ -151,10 +157,12 @@ module.exports.reset_post = async (req, res) => {
   }
 }
 
+// Reset Password Page
 module.exports.resetPage_get = (req, res) => {
   res.render('passwordReset')
 }
 
+// Reset password post request
 module.exports.resetPage_post = async (req, res) => {
   const { password } = req.body
   const user = await User.findById(req.params.id)

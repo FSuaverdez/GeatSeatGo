@@ -22,6 +22,7 @@ const handleErrors = (err) => {
   return errors
 }
 
+// Schedules
 module.exports.schedules_get = async (req, res) => {
   let schedules = await Schedule.find().sort({ createdAt: 'desc' })
   if (res.locals.currentUser.role !== 'ADMIN') {
@@ -45,6 +46,7 @@ module.exports.schedules_get = async (req, res) => {
   }
 }
 
+// Create Schedule
 module.exports.schedules_post = async (req, res) => {
   let schedule = new Schedule({
     movieId: req.body.movieId,
@@ -62,6 +64,7 @@ module.exports.schedules_post = async (req, res) => {
   }
 }
 
+// Delete Schedule
 module.exports.schedules_delete = async (req, res) => {
   try {
     await Schedule.findByIdAndDelete(req.params.id)
@@ -71,6 +74,7 @@ module.exports.schedules_delete = async (req, res) => {
   }
 }
 
+// Edit Schedule
 module.exports.schedules_edit = async (req, res) => {
   let schedule = await Schedule.findById(req.params.id)
   schedule.movieId = req.body.movieId
@@ -87,6 +91,8 @@ module.exports.schedules_edit = async (req, res) => {
     res.status(400).json({ errors })
   }
 }
+
+// Get specific schedule
 module.exports.schedulesId_get = async (req, res) => {
   try {
     let schedule = await Schedule.findById(req.params.id)

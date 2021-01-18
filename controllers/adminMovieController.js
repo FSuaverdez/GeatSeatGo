@@ -16,6 +16,7 @@ const handleErrors = (err) => {
   return errors
 }
 
+// Get Movies
 module.exports.movies_get = async (req, res) => {
   let movieQuery = Movie.find().sort({ createdAt: 'desc' })
   let userQuery = User.find().sort({ createdAt: 'desc' })
@@ -39,6 +40,7 @@ module.exports.movies_get = async (req, res) => {
   }
 }
 
+// Create Movie
 module.exports.movies_post = async (req, res) => {
   let movie = new Movie({
     title: req.body.title,
@@ -55,6 +57,7 @@ module.exports.movies_post = async (req, res) => {
   }
 }
 
+// Delete Movie
 module.exports.movies_delete = async (req, res) => {
   try {
     await Movie.findByIdAndDelete(req.params.id)
@@ -63,6 +66,8 @@ module.exports.movies_delete = async (req, res) => {
     res.status(400).json({ error })
   }
 }
+
+// Edit Movie
 module.exports.movies_edit = async (req, res) => {
   let movie = await Movie.findById(req.params.id)
   movie.title = req.body.title
