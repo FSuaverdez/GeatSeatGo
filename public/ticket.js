@@ -22,6 +22,10 @@ const createTicket = (newOrder, schedule, movie, date) => `
       <h4 class="card-title">
         ${movie.title}
       </h4>
+      <p class="card-text" margin="0">Order ID: <span class="black">
+          ${newOrder._id}
+        </span>
+      </p>
       <p class="card-text" margin="0">Cinema: <span class="black">
           ${schedule.cinema}
         </span>
